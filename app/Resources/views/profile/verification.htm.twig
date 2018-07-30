@@ -1,0 +1,122 @@
+{% extends 'base.htm.twig' %}
+
+{% block body %}
+    <h2>Mpesa Confirmation</h2>
+
+    <div class="row">
+        <div class="">
+            <div class="panel registration-form">
+                <div class="panel-body">
+                    <div class="row">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img src="{{ asset('images/M-PESA.jpg') }}" width="150"/>
+                        </div>
+                        {% if success =="Success" %}
+                        <h3>Payment received</h3>
+                        <p>Thank you for your payment. Below are the details of your payment.</p>
+                    </div>
+                    <div class="row">
+
+                    <ul style="list-style: none">
+                            <li> <b>Mpesa Confirmation Code:</b> {{ profile.mpesaVerificationCode }}</li>
+                            <li> <b>Mpesa Transaction Status:</b> {{ profile.mpesaStatus }}</li>
+                            <li> <b>Mpesa Description:</b> {{ profile.mpesaDescription }} </li>
+                            <li> <b>Mpesa Payment Date:</b> {{ profile.mpesaPaymentDate | date('Y-m-d H:i:s')  }}  </li>
+                            <li> <b>Mpesa Number:</b> {{ profile.mpesaNumber }}</li>
+                            <li> <b>Amount:</b> {{ profile.mpesaAmount }}</li>
+
+                        </ul>
+                        <p>Thank you for paying your Membership Fee and updating your profile on the KAMP Online Portal.</p>
+                        {% if type=="corporate" %}
+                            <p>To complete your Profile, the following documents are <b>ALL</b> required as part of your application:</p>
+                            <ul style="list-style: none">
+                                <li><input type="checkbox" disabled id="kra" value="">1. Kenya Revenue Authority ITAX Updated Pin Certificate.</li>
+                                <li>&nbsp;</li>
+                                <li>
+                                    <input type="checkbox" disabled id="regcert" value="">2. Certificate of Registration or Incorporation </li>
+                                <li>&nbsp;</li>
+                                <li><input type="checkbox" disabled id="passport1" value="">3. Passport-Size Photo Of Director 1 </li>
+                                <li>&nbsp;</li>
+                                <li><input type="checkbox" disabled id="idcopy1" value="">4. Valid National Identity Card or Passport of Director 1.</li>
+                                <li>&nbsp;</li>
+                                {% if sole =="Sole Proprietorship" %}
+                                {% else %}
+                                    <li><input type="checkbox" disabled id="passport2" value="">5. Passport-Size Photo Of Director 2 </li>
+                                    <li>&nbsp;</li>
+                                    <li><input type="checkbox" disabled id="idcopy2" value="">6. Valid National Identity Card or Passport of Director 2.</li>
+                                    <li>&nbsp;</li>
+
+                                {% endif %}
+                            </ul>
+                            <p>When you are ready, use the link below to upload the documents.</p>
+                            <p>
+                                <a href="{{ path('add-corporate-document',{'id':profile.id}) }}">Click Here</a>.
+                            </p>
+                            <p>To upload your Recording Samples, use the link below</p>
+                            <p>
+                                <a href="{{ path('add-corporate-sample', {'id': profile.id}) }}">Click Here</a>.
+                            </p>
+                            <p>We have also sent you this link on email if you prefer to add the documents and recordings later.</p>
+                        {% else %}
+                        <p>To complete your Profile, the following documents are <b>ALL</b> required as part of your application:</p>
+                            <ul style="list-style: none">
+
+                                <li>1. A Coloured Passport Size photograph </li>
+                                <li>&nbsp;</li>
+                                <li>2. Valid National Identity Card, Passport or Birth Certificate </li>
+                                <li>&nbsp;</li>
+                                <li>3. Kenya Revenue Authority ITAX Pin Certificate.</li>
+                                <li>&nbsp;</li>
+                                <li>4. Valid National Identity Card, Passport or Birth Certificate of Next of Kin.</li>
+
+                            </ul>
+                        <p>When you are ready, use the link below to upload the documents.</p>
+                        <p>
+                            <a href="{{ path('add-document',{'id':profile.id}) }}">Click Here</a>.
+                        </p>
+                            <p>To upload your Recording Samples, use the link below</p>
+                            <p>
+                                <a href="{{ path('add-sample', {'id': profile.id }) }}">Click Here</a>.
+                            </p>
+
+                            <p>We have also sent you this link on email if you prefer to add the documents and recordings later.</p>
+
+                        {% endif %}
+
+                        <p>In the meantime, to complete your profile, kindly send your recordings in mp3 format to <b>membership@kamp.or.ke.</b></p>
+                        {% elseif success == "Failed" %}
+                        <h3>Payment Failed</h3>
+                        <p>Oops Something went wrong with your payment.</p><p>&nbsp;</p>
+                            <p>If you are seeing this message but the Mpesa payment completed and you received an Mpesa confirmation message, kindly <a style="color: #00a5bb" href="{{ path('verify-payment') }}"> Click here</a> to verify again.</p>
+                        <p></p>
+                        <p> If the transaction failed or timed out, Kindly <a style="color: #00a5bb" href="{{ path('pay_mpesa') }}"> Click here</a> to try again.</p>
+
+                        {% else %}
+                            <h6>Payment Pending</h6>
+                            <p>Your payment is yet to be verified. We will notify you when the payment is verified.</p>
+
+                        {% endif %}
+                    </div>
+
+                    <div class="text-right">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /registration form -->
+
+
+
+
+
+{% endblock %}
+
+
+

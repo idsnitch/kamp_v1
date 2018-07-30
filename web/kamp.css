@@ -1,0 +1,133 @@
+a.btn,a#continue,a#previous{
+    font-size: 1.1em;
+    color: #fff;
+    border-radius: .3rem;
+}
+
+.nav-tabs {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.nav-tabs li {
+    display: table-cell;
+    width: 14%;
+    vertical-align: top;
+    text-align: center;
+    position: relative;
+}
+.nav-tabs.corporate li {
+    display: table-cell;
+    width: 14%;
+    vertical-align: top;
+    text-align: center;
+    position: relative;
+}
+.nav-tabs li.current > a {
+    color: #333333;
+    cursor: default;
+}
+.nav-tabs li  a {
+    position: relative;
+    padding-top: 48px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+
+}
+.current-info {
+    position: absolute;
+    left: -99999px;
+}
+.nav-tabs li.current .number {
+    font-size: 0;
+    border-color: #00BCD4;
+    background-color: #fff;
+    color: #00BCD4;
+}
+.nav-tabs .number {
+    background-color: #fff;
+    color: #ccc;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -19px;
+    width: 38px;
+    height: 38px;
+    border: 2px solid #eeeeee;
+    font-size: 14px;
+    border-radius: 50%;
+    z-index: 10;
+    line-height: 34px;
+    text-align: center;
+}
+.nav-tabs li.current .number:after {
+    content: '\e913';
+    font-family: 'icomoon';
+    display: inline-block;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 34px;
+    -webkit-transition: all 0.15s ease-in-out;
+    -o-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+}
+.nav-tabs li:before,.nav-tabs li:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 43px;
+    width: 50%;
+    height: 2px;
+    background-color: #00BCD4;
+    z-index: 9;
+}
+.nav-tabs li.current:after, .nav-tabs li.current ~ li:before, .nav-tabs li.current ~ li:after {
+    background-color: #eeeeee;
+}
+.nav-tabs li.current ~ li:after {
+    background-color: #eeeeee;
+}
+.nav-tabs li.first:before,.nav-tabs li ~ li.last:after,.nav-tabs li ~ li.first:before{
+    background-color: transparent;
+}
+.nav-tabs li:after {
+    right: 0;
+}
+.nav-tabs li:before {
+    left: 0;
+}
+.nav-tabs li.disabled a, .nav-tabs li.disabled a:hover, .nav-tabs li.disabled a:focus,.nav-tabs li.disabled a, .nav-tabs li.current a:hover, .nav-tabs li.current a:focus {
+    color: #999999;
+    cursor: default;
+    border: 0px;
+    text-decoration: none;
+}
+.nav-tabs li.current a, .nav-tabs li.current a:hover, .nav-tabs li.current a:focus {
+    cursor: default;
+    border: 0px;
+    text-decoration: none;
+}
+.nav-tabs{
+    border:0px;
+}
+legend{
+    color:#e22532;
+    font-weight: bold;
+    border-bottom:1px #ccc solid;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    margin-top: 10px;
+}
+.steps-validation{
+    background-color: #fff;
+    border-radius: 0;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e5e5;
+    padding:18px;
+}

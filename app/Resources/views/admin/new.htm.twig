@@ -1,0 +1,68 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}New Administrator{% endblock %}
+{% block body %}
+<!-- ############ LAYOUT START-->
+
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="card">
+    <div class="card-header" data-background-color="red">
+        <h4 class="title" style="color: white">New Administrator</h4>
+        <p class="category">Create a New User</p>
+    </div>
+    <div class="card-content">
+
+        <div class="page messages" style="display: none">
+            <div class="messages" style="">
+                <div class="alert alert-success">
+                    <div>
+                        Request successful.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="page errors" style="display: none">
+            <div class="errors" style="">
+                <div class="alert alert-danger">
+                    <div>
+                        :-( Something went wrong. This request was not completed.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {{ form_start(adminForm) }}
+            <div class="md-form-group float-label" style="font-weight: bold">
+                {{ form_row(adminForm.firstName, { 'attr': {'class': 'form-control'} }) }}
+
+            </div>
+            <div class="md-form-group float-label" style="font-weight: bold">
+                {{ form_row(adminForm.lastName, { 'attr': {'class': 'form-control'} }) }}
+
+            </div>
+            <div class="md-form-group float-label" style="font-weight: bold">
+                {{ form_row(adminForm.email, { 'attr': {'class': 'form-control'} }) }}
+
+            </div>
+        <div class="md-form-group float-label" style="font-weight: bold">
+
+                <label for="role" class="required">Role</label>
+            <select id="role" name="role" required="required" class="form-control select2">
+                    <option value="" selected="selected">Please Select Role</option>
+                    <option value="Membership">Membership</option>
+                    <option value="Board">Board</option>
+                    <option value="Administrator">Administrator</option>
+            </select>
+
+        </div>
+        <button type="submit" class="btn primary btn-block p-x-md">Create</button>
+        {{ form_end(adminForm) }}
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+  {% endblock %}

@@ -1,0 +1,100 @@
+<div class="uploaded">
+<ul>
+    <ul style="list-style: none">
+        {% if profile.companyType =="Sole Proprietorship" %}
+
+            <li><input type="checkbox" disabled id="kra" value="">1. A copy of your Kenya Revenue Authority ITAX Updated Pin Certificate.</li>
+            <li>&nbsp;</li>
+            <li>
+                <input type="checkbox" disabled id="regcert" value="">2. A Copy of Certificate of Business Name Registration </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="passport1" value="">3.A Clear Passport-Size Photo </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="idcopy1" value="">4. A copy of your Valid National Identity Card or Passport.</li>
+            <li>&nbsp;</li>
+
+            <li><input type="checkbox" disabled id="kinidcopy" value="">5. Valid Next of Kin National Identity Card or Passport or Birth Certificate.</li>
+            <li>&nbsp;</li>
+        {% else %}
+
+            <li><input type="checkbox" disabled id="kra" value="">1. Kenya Revenue Authority ITAX Updated Pin Certificate.</li>
+            <li>&nbsp;</li>
+            <li>
+                <input type="checkbox" disabled id="regcert" value="">2. Certificate of Registration or Incorporation </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="passport1" value="">3. Passport-Size Photo Of Director 1 </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="idcopy1" value="">4. Valid National Identity Card or Passport of Director 1.</li>
+            <li>&nbsp;</li>
+
+            <li><input type="checkbox" disabled id="passport2" value="">5. Passport-Size Photo Of Director 2 </li>
+            <li>&nbsp;</li>
+            <li><input type="checkbox" disabled id="idcopy2" value="">6. Valid National Identity Card or Passport of Director 2.</li>
+            <li>&nbsp;</li>
+        {% endif %}
+    </ul>
+
+</ul>
+    {% if profile.corporateProfileDocuments | length > 0 %}
+        <p>You have already submitted the following documents</p>
+        <ol>
+            {% for profileDocument in profile.corporateProfileDocuments %}
+                {% if profileDocument.documentName == 'KRA-PIN' %}
+                <script type="text/javascript">
+                    document.getElementById("kra").checked = true;
+                </script>
+                        <li><b><i>Copy of Kenya Revenue Authority ITAX Updated Pin Certificate</i></b></li>
+                {% elseif profileDocument.documentName == 'REG-CERT' %}
+                <script type="text/javascript">
+                    document.getElementById("regcert").checked = true;
+                </script>
+                        <li><b><i>Registration Certificate</i></b></li>
+
+                    {% elseif profileDocument.documentName == 'DIR1-PASSPORT-PHOTO' %}
+                <script type="text/javascript">
+                    document.getElementById("passport1").checked = true;
+                </script>
+                        <li><b><i>Color Passport of Director 1</i></b></li>
+
+                    {% elseif profileDocument.documentName == 'DIR1-ID-COPY' %}
+                <script type="text/javascript">
+                    document.getElementById("idcopy1").checked = true;
+                </script>
+                        <li><b><i>Copy of ID of Director 1</i></b></li>
+
+                    {% elseif profileDocument.documentName == 'DIR2-PASSPORT-PHOTO' %}
+                <script type="text/javascript">
+                    document.getElementById("passport2").checked = true;
+                </script>
+                        <li><b><i>Color Passport of Director 2</i></b></li>
+
+                    {% elseif profileDocument.documentName == 'DIR2-ID-COPY' %}
+                <script type="text/javascript">
+                    document.getElementById("idcopy2").checked = true;
+                </script>
+                        <li><b><i>Copy of ID of Director 2</i></b></li>
+
+                    {% elseif profileDocument.documentName == 'NEXT-OF-KIN-ID' %}
+                <script type="text/javascript">
+                    document.getElementById("kinidcopy").checked = true;
+                </script>
+                        <li><b><i>Copy of ID of Next of Kin</i></b></li>
+
+                {% endif %}
+
+
+            {% endfor  %}
+        </ol>
+    {% else %}
+
+    {% endif %}
+
+    {% if profile.corporateProfileDocuments | length > 0 %}
+                                    {% if profile.corporateProfileDocuments | length < 6 %}
+                                        <fieldset>
+                                            <legend>Section B: Document Upload</legend>
+                                        </fieldset>
+                                        <p>Use the form below to upload the remaining documents one at a time.</p>
+                                    {% endif %}
+                                {% endif %}
+</div>

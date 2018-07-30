@@ -1,0 +1,211 @@
+{% extends 'base.htm.twig' %}
+{% block title %}Update Profile {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('kamp.css') }}"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+    {% block javascript %}
+        <!-- Core JS files -->
+        <script type="text/javascript">
+            // prepare the form when the DOM is ready
+            jQuery(document).ready(function () {
+                jQuery('#new').click(function () {
+                    // bind to the form's submit event
+                    jQuery('#newForm').submit(function (e) {
+                        var ajaxRequest;
+
+                        //Prevent Normal Submit
+                        e.preventDefault();
+
+                        jQuery(".message").fadeOut("slow");
+                        jQuery(".error").fadeOut("slow");
+
+                        jQuery("#newForm").fadeOut("slow");
+                        jQuery('#saving').fadeIn("slow");
+
+                        var form = document.getElementById("newForm");
+                        var elements = form.elements;
+                        // get form values
+                        var values = jQuery(this).serialize();
+
+                        jQuery.ajax({
+                            url: jQuery(this).data('url'),
+                            data: new FormData(this),
+                            contentType: false,
+                            cache:false,
+                            processData: false,
+                            method: 'POST'
+                        }).done(function () {
+                            jQuery('#saving').fadeOut("slow");
+                            jQuery('#message').fadeIn("slow");
+
+                            jQuery.get("/profile/update/uploaded-corporate-recording", function( data ) {
+                                jQuery('.uploaded').html(data);
+                            });
+                            jQuery.get("/profile/sample-corporate-upload-form", function( data ) {
+                                jQuery('#newForm').html(data);
+                            });
+                            setTimeout(function () {
+                                jQuery("#message").fadeOut("slow");
+                            }, 3000);
+
+                            jQuery('#newForm').trigger("reset");
+                            jQuery("#newForm").fadeIn("slow");
+
+
+                        }).fail(function () {
+                            jQuery('#saving').fadeOut("slow");
+
+                            jQuery("#error").fadeIn("slow");
+
+                            setTimeout(function () {
+                                jQuery("#error").fadeOut("slow");
+                            }, 3000);
+                            jQuery('#newForm').trigger("reset");
+                            jQuery("#newForm").fadeIn("slow");
+
+                        })
+
+
+                    });
+
+                })
+                jQuery('#showTracks').click(function () {
+                    jQuery('.tracks').slideDown("slow");
+                    jQuery('#hideTracks').fadeIn("slow");
+
+                })
+                $('#hideTracks').click(function () {
+                    $('.tracks').slideUp("slow");
+                    jQuery('#hideTracks').fadeOut("slow");
+                })
+
+            });
+
+        </script>
+        <script src="{{ asset('loko/mod_vina_treeview_menus/assets/js/jquery.cookie.js') }}"
+                type="text/javascript"></script>
+        <script src="{{ asset('loko/mod_vina_treeview_menus/assets/js/jquery.treeview.js') }}"
+                type="text/javascript"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            jQuery(document).ready(function() {
+                jQuery('.js-date').datepicker(
+                    {
+                            dateFormat: 'yy-mm-dd',
+                      }
+                );
+            });
+        </script>
+
+    {% endblock %}
+
+{% block pageTitle %}<h2> Documents - Update Profile</h2>{% endblock %}
+
+{% block component %}
+    <style>
+        .page-header{
+            display: none;
+        }
+    </style>
+
+{% endblock %}
+    {% block body %}
+<div id="sp-component" class="col-sm-9 col-md-12">
+    {% if not form.vars.valid %}
+
+        {# Loop through every form item #}
+        {% for child in profileForm.children %}
+            {# Display the errors of the form item #}
+            {%for error in child.vars.errors%}
+                <p><div class="alert alert-danger">{{error.message}}</div></p>
+            {%endfor%}
+        {%endfor%}
+
+    {%endif%}
+
+    <div class="wizard-inner wizard steps">
+        <div class="connecting-line"></div>
+        <ul role="tablist" class="nav-tabs corporate">
+            <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
+                        id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
+                            class="current-info audible">current step: </span><span class="number">1</span>
+                    Personal Information</a></li>
+
+            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                   aria-controls="steps-uid-0-p-2"><span
+                            class="number">2</span> Documents</a></li>
+
+            <li role="tab" class="current" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                    aria-controls="steps-uid-0-p-2"><span
+                            class="number">3</span> Recording Samples</a></li>
+            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                    href="#steps-uid-0-h-3"
+                                                                    aria-controls="steps-uid-0-p-3"><span
+                            class="number">4</span> Confirmation</a></li>
+            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                         href="#steps-uid-0-h-3"
+                                                                         aria-controls="steps-uid-0-p-3"><span
+                            class="number">5</span> Payment</a></li>
+
+            <li role="tab" class="disable last" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                        href="#steps-uid-0-h-3"
+                                                                        aria-controls="steps-uid-0-p-3"><span
+                            class="number">6</span> Payment Confirmation</a></li>
+        </ul>
+
+    </div>
+
+    <div class="steps-validation">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>Section A: Instructions</legend>
+                </fieldset>
+                <p><i>** Each track should not exceed 10MB in size **</i></p>
+                <p>Use the form below in Section B below to upload your Audio Visual Samples. You can upload upto 10 tracks Per Album.<p/>
+                <a style="color:#fd9614" href="{{ asset('audio_visual_declaration_form.pdf') }}">Click here to Download and Sign Audio Visual Declaration form</a>
+                <p> A Signed copy of the Audio Visual Declaration form below is required with each submission. </p>
+
+            </div>
+        </div>
+        {{ render(controller("AppBundle:Home:uploadedCorporateRecordingSamples")) }}
+        <div class="steps-validation">
+            <div id="message" style="display: none">
+                <div class="alert alert-success" role="alert">
+                    Recording Sample Uploaded!
+                </div>
+            </div>
+            <div id="saving" style="display: none">
+                <div class="alert alert-warning" role="alert">
+                    <span class="fa fa-spin fa-spinner"></span> Uploading Recording Sample...
+                </div>
+            </div>
+            <div id="error" style="display: none">
+                <div class="alert alert-danger" role="alert">
+                    Recording Sample not Uploaded. Check the size of the recording.
+                </div>
+            </div>
+            {{ render(controller("AppBundle:Home:sampleCorporateUploadForm")) }}
+
+            <br/>
+            <div class="form-group row right">
+                <div class="col-sm-6" style="text-align: left">
+                    <a href="{{ path('corporate-documents') }}" type="submit" id="previous" class="btn btn-primary btn-lg">Previous</a>
+                </div>
+                <div class="col-sm-6" style="text-align: right">
+                    <a href="{{ path('corporate-confirm-profile') }}" id="continue" style="display: none" type="submit" class="btn btn-primary btn-lg">Continue to Confirmation</a>
+                </div>
+            </div>
+
+        </div>
+
+
+        {% endblock %}
+        {% block right %}
+{% endblock %}

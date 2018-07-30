@@ -1,0 +1,31 @@
+<div class="uploaded">
+
+{% if profile.profileSamples | length > 0 %}
+    <p>You have already submitted the following Recording Samples:  &nbsp;<b><span id="showTracks" style="font-size: 0.8em">View Tracks</span>&nbsp;&nbsp;<span id="hideTracks" style="display: none;font-size: 0.8em">Hide Tracks</span></b></p>
+    <ol>
+        {% for profileSample in profile.profileSamples %}
+            <li><b><i>{{ profileSample.albumTitle }}</i>  </b>
+
+            <ol class="tracks" style="display: none">
+                <li><video width="320" height="240" controls>
+                        <source src="{{ asset('assets/recordings/') }}{{ profileSample.recordingFile.documentFileName }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+
+            </ol>
+            </li>
+
+        {% endfor  %}
+    </ol>
+{% else %}
+
+{% endif %}
+                                {% if profile.profileSamples | length > 0 %}
+                                        <fieldset>
+                                            <legend>Section B: Recording Sample Upload</legend>
+                                        </fieldset>
+                                        <p>Use the form below to upload your Recording Samples, one Album at a time.</p>
+
+                                {% endif %}
+</div>

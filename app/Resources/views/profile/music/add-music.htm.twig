@@ -1,0 +1,261 @@
+{% extends 'base.htm.twig' %}
+{% block title %}Upload Samples{% endblock %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+{% block pageTitle %}<h2>Upload Samples</h2>{% endblock %}
+{% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        // prepare the form when the DOM is ready
+        $(document).ready(function() {
+
+            // bind to the form's submit event
+            $('#addDocumen').submit(function(e) {
+                var ajaxRequest;
+                //Prevent Normal Submit
+                e.preventDefault();
+
+                $(".messages").fadeOut("slow");
+
+                $(this).find('.fa-plus-square')
+                    .removeClass('fa-plus-square')
+                    .addClass('fa-spinner')
+                    .addClass('fa-spin');
+
+                $(this).find('.fa-check')
+                    .removeClass('fa-check')
+                    .addClass('fa-spinner')
+                    .addClass('fa-spin');
+
+
+                // get form values
+                var values = $(this).serialize();
+
+
+                $.ajax({
+                    url: $(this).data('url'),
+                    data: values,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    method: 'POST'
+                }).done(function () {
+                    //$el.fadeOut("slow");
+                    $(".messages").fadeIn("slow");
+
+                    $("#add-the-doc")
+                        .removeClass('fa-spinner')
+                        .removeClass('fa-spin')
+                        .addClass('fa-check');
+                    //location.reload();
+                }).fail(function () {
+
+                    $(".error").fadeIn("slow");
+
+                    $("#add-the-doc")
+                        .removeClass('fa-spinner')
+                        .removeClass('fa-spin')
+                        .addClass('fa-times');
+                    location.reload();
+                })
+
+
+            });
+            {% if app.request.query.get("done") =="success" %}
+            $(".messages").fadeIn("slow");
+            {% endif %}
+
+        });
+
+
+    </script>
+
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('.js-date').datepicker(
+                {
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: '1930:2009',
+                    dateFormat: 'yy-mm-dd',
+                    setDate:"7/11/1930"
+                }
+            );
+        });
+        </script>
+{% endblock %}
+{% block breadCrumbs %}
+    <ol class="breadcrumb">
+        <li><i class="fa fa-home"></i></li>
+        <li><a href="#" class="pathway">Home</a></li>
+        <li><a href="#" class="pathway">Audio Visual Recordings</a></li>
+        <li class="active">Upload Sample</li>
+    </ol>
+{% endblock %}
+{% block body %}
+    <style>
+        @media only screen and (max-width: 640px) {
+            .select{
+                max-width:340px;
+            }
+        }
+    </style>
+
+
+    <div class="row">
+        <div class="">
+            <div class="panel registration-form">
+                <div class="panel-body">
+                    <div class="row">
+
+                    </div>
+                    <div class="row content-holder">
+
+                        <h2>Audio Visual Recordings</h2>
+                        <p><i>** Each Sample should not exceed  10MB in size **</i></p>
+                        <p>Use the form below to upload your Audio Visual Samples. A Signed Audio Visual Declaration is required with this submission. </p>
+                        <a style="color:#fd9614" href="{{ asset('audio_visual_declaration_form.pdf') }}">Click here to Download and Sign Audio Visual Declaration form</a>
+
+
+                        {% if profile.profileSamples | length > 0 %}
+                            <p>You have already submitted the following Samples</p>
+                            <ol>
+                                {% for profileSample in profile.profileSamples %}
+                                    <li><b><i>{{ profileSample.albumTitle }}</i></b></li>
+                                {% endfor  %}
+                            </ol>
+                        {% else %}
+
+                        {% endif %}
+
+                        <div class="page messages" style="display:none">
+                            <div class="messages" style="">
+                                <div class="message-success success message">
+                                    <div>
+                                        <div class="alert alert-success">
+                                            <strong>Success!</strong> Recording uploaded.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="page error" style="display:none">
+                            <div class="messages" style="">
+                                <div class="message-success success message">
+                                    <div>
+                                        <div class="alert alert-danger">
+                                            <strong>Oops!</strong> Something went wrong, document not uploaded. It Might already have been uploaded.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                        {{ form_start(form,{'attr': {'id': 'addDocument'}}) }}
+
+                    <div class="row content-holder">
+
+                        <div class="col-md-5">
+                            <div class="form-group has-feedback">
+                                {{ form_row(form.format,{
+
+                                    'attr': {'class': 'select'}
+                                }) }}
+                                <div class="form-control-feedback">
+                                    <i class="icon-user-plus text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row content-holder">
+
+                            <div class="col-md-5">
+                                <div class="form-group has-feedback">
+                                    {{ form_row(form.albumTitle,{
+
+                                    }) }}
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user-plus text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="form-group has-feedback">
+                                    {{ form_row(form.mainArtist,{
+                                    }) }}
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user-plus text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="row content-holder">
+
+                        <div class="col-md-5">
+                            <div class="form-group has-feedback">
+                                {{ form_row(form.dateOfProduction,{
+
+                                    'attr': {'class': 'js-date'}
+                                }) }}
+                                <div class="form-control-feedback">
+                                    <i class="icon-user-plus text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group has-feedback">
+                                {{ form_row(form.countryOfProduction,{
+
+                                    'attr': {'class': 'select'}
+                                }) }}
+                                <div class="form-control-feedback">
+                                    <i class="icon-user-plus text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="row content-holder">
+                            <div class="col-md-5">
+                                <div class="form-group has-feedback">
+                                    {{ form_row(form.documentFile) }}
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user-plus text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-md-5">
+                            <div class="form-group has-feedback">
+                                {{ form_row(form.recordingFile) }}
+                                <div class="form-control-feedback">
+                                    <i class="icon-user-plus text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="">
+                            <input type="hidden" name="_pxc" value="{{ profile.id }}">
+                            <button id="addDoc" type="submit" style="background-color: #fd9614" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-10" formnovalidate>
+                                <b><span id="add-the-doc" class="fa fa-plus-square"></span>&nbsp;&nbsp;</b> Submit
+                            </button>
+                        </div>
+                        {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock body %}

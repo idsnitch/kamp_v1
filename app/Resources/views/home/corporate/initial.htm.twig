@@ -1,0 +1,698 @@
+{% extends 'base.htm.twig' %}
+{% block title %}Update Profile {% endblock %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('kamp.css') }}"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+    {% block javascript %}
+
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            jQuery(document).ready(function() {
+                jQuery('.js-date').datepicker(
+                    {
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                            changeYear: true,
+                        yearRange: '1950:2009',
+
+                    }
+                );
+            });
+        </script>
+    {% endblock %}
+
+{% block pageTitle %}<h2>Update Profile</h2>{% endblock %}
+
+{% block component %}
+
+{% endblock %}
+    {% block body %}
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('#app_bundle_corporate_details_form_numberOfDirectors').on('change', function() {
+                    if (this.value === 1){
+                        jQuery("#directorKin").fadeIn("slow");
+
+
+                    }else if(this.value > 1){
+                        jQuery("#secondDirector").fadeIn("slow");
+                        jQuery("#directorKin").fadeOut("slow");
+
+                        var label1 = jQuery("label[for='app_bundle_corporate_details_form_secondDirectorNames']");
+                        label1.addClass("required");
+
+                        var label2 = jQuery("label[for='app_bundle_corporate_details_form_secondDirectorPosition']");
+                        label2.addClass("required");
+
+                        var label3 = jQuery("label[for='app_bundle_corporate_details_form_secondDirectorIdNumber']");
+                        label3.addClass("required");
+
+                    }else{
+                        jQuery("#secondDirector").fadeOut("slow");
+                        jQuery("#directorKin").fadeIn("slow");
+
+                        var label4 = jQuery("label[for='app_bundle_corporate_details_form_kinFirstName']");
+                        label4.addClass("required");
+
+                        var label5 = jQuery("label[for='app_bundle_corporate_details_form_kinMiddleName']");
+                        label5.addClass("required");
+
+                        var label6 = jQuery("label[for='app_bundle_corporate_details_form_kinLastName']");
+                        label6.addClass("required");
+
+                        var label7 = jQuery("label[for='app_bundle_corporate_details_form_kinRelationship']");
+                        label7.addClass("required");
+
+                        var label8 = jQuery("label[for='app_bundle_corporate_details_form_kinDateOfBirth']");
+                        label8.addClass("required");
+
+                        var label9 = jQuery("label[for='app_bundle_corporate_details_form_kinCounty']");
+                        label9.addClass("required");
+
+                        var label10 = jQuery("label[for='app_bundle_corporate_details_form_kinPostalAddress']");
+                        label10.addClass("required");
+
+                        var label11 = jQuery("label[for='app_bundle_corporate_details_form_kinPostalCode']");
+                        label11.addClass("required");
+                    }
+
+                });
+            });
+        </script>
+        <div id="sp-component" class="col-sm-9 col-md-12">
+            {% if not profileForm.vars.valid %}
+
+                {# Loop through every form item #}
+                {% for child in profileForm.children %}
+                    {# Display the errors of the form item #}
+                    {% for error in child.vars.errors %}
+                        <p>
+                        <div class="alert alert-danger">{{ error.message }}</div></p>
+                    {% endfor %}
+                {% endfor %}
+
+            {% endif %}
+            <div class="wizard-inner wizard steps">
+                <div class="connecting-line"></div>
+                <ul role="tablist" class="nav-tabs corporate">
+                    <li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a
+                                id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
+                                    class="current-info audible">current step: </span><span class="number">1</span>
+                            Business Information</a></li>
+                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                            aria-controls="steps-uid-0-p-2"><span
+                                    class="number">2</span> Documents</a></li>
+
+                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                            aria-controls="steps-uid-0-p-2"><span
+                                    class="number">3</span> Recording Samples</a></li>
+                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                            href="#steps-uid-0-h-3"
+                                                                            aria-controls="steps-uid-0-p-3"><span
+                                    class="number">4</span> Confirmation</a></li>
+                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                                 href="#steps-uid-0-h-3"
+                                                                                 aria-controls="steps-uid-0-p-3"><span
+                                    class="number">5</span> Payment</a></li>
+
+                    <li role="tab" class="disable last" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                                href="#steps-uid-0-h-3"
+                                                                                aria-controls="steps-uid-0-p-3"><span
+                                    class="number">6</span> Payment Confirmation</a></li>
+                </ul>
+            </div>
+
+            {{ form_start(profileForm,{ 'attr': {'class': 'steps-validation '} }) }}
+            <br/>
+            <fieldset>
+                <legend class="title">Section A: Applicant Details</legend>
+                <br/>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(profileForm.companyName,{'attr':{'class':'form-control'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(profileForm.tradingName,{
+                                'label': 'Trading Name ( if different from Company Name)',
+                                'attr':{'class':'form-control'},
+                            }) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.companyType,{
+                            'label': 'Registration Type',
+                            'attr':{'class':'select'}
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.itaxPin,{
+                            'label': 'Pin Number (I-TAX Registered Pin)',
+                            'attr':{'class':'form-check'}
+                        }) }}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.regNumber,{
+                            'label':'Reg No.',
+                            'attr':{'class':'form-control'
+                            }}) }}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.county,{'attr':{'class':'select'}}) }}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.physicalAddress) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.city) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.postalAddress) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.postalCode) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.telephone) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.mobileNumber,{
+                            'required':true,
+                            'attr':{'placeholder':'254720123456'}
+                        })
+
+                        }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.emailAddress) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.emailAddress2) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(profileForm.website) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.isCollectingSocietiesMember,{
+                            'label':'Are you a Member of other collecting societies?'
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.collectingSocieties,{
+                            'label':'If Yes, Name them here'
+                        }) }}
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Section B: Director Information</legend>
+                <br/>
+                {% if profile.companyType == "Sole Proprietorship" %}
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.firstDirectorNames,{
+                                    'label':'Director Names'
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.firstDirectorPosition,{
+                                    'label':'Director Position'
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.firstDirectorIdNumber,{
+                                    'label':'Director ID/PP No'
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row" style="display: none">
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.secondDirectorNames) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.secondDirectorPosition) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.secondDirectorIdNumber) }}
+                            </div>
+                        </div>
+                    <input type="hidden" name="app_bundle_corporate_details_form_numberOfDirectors" id="app_bundle_corporate_details_form_numberOfDirectors" value="1">
+                {% else %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(profileForm.numberOfDirectors) }}
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.firstDirectorNames,{
+                                    'label':'First Director/Partner Names',
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.firstDirectorPosition,{
+                                    'label':'First Director/Partner Position'
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.firstDirectorIdNumber,{
+                                    'label': 'First Director/Partner ID/PP No.'
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row"  id="secondDirector" style="display: none">
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.secondDirectorNames,{
+                                    'label':'Second Director/Partner Names',
+
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.secondDirectorPosition,{
+                                    'label':'Second Director/Partner Position',
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.secondDirectorIdNumber,{
+                                    'label':'Second Director/Partner ID / PP No.',
+                                }) }}
+                            </div>
+                        </div>
+
+                {% endif %}
+
+            </fieldset>
+
+                <br/>
+
+
+                {% if profile.companyType == "Sole Proprietorship" %}
+                    <fieldset>
+                        <legend>
+                            Section C:  Next of Kin
+                        </legend>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinFirstName,{
+                                    'label': 'First Name',
+                                    'required':true,
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinMiddleName,{
+                                    'label': 'Middle Name',
+                                    'required':true,
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinLastName,{
+                                    'label': 'Last Name',
+                                    'required':true,
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinRelationship,{
+                                    'label': 'Relationship to Applicant',
+                                    'required':true,
+                                }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinIdNumber,{
+                                    'label': 'ID/PP NO.',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinDateOfBirth,{
+                                    'label': 'Date of Birth',
+                                    'required':true,
+                                    'attr':{
+                                        'class':'js-date'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinGender,{
+                                    'label': 'Gender',
+                                    'attr':{
+                                        'class':'form-check'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinPhysicalAddress,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinCity,{
+                                    'required':true,
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinCounty,{
+                                    'required':true,
+                                    'attr': {'class': 'select'}})  }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinPostalAddress,{
+                                    'required':true,
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                })  }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinPostalCode,{
+                                    'required':true,
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                })  }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinTelephoneNumber,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinMobileNumber,{
+                                    'attr':{
+                                        'class':'form-control',
+                                        'placeholder':'254720123456'
+                                    },
+                                })
+
+                                }}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinEmailAddress,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.isKinMinor,{
+                                    'label':'Is the Kin a Minor',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinGuardian,{
+                                    'label': 'If Yes, indicate Guardian here:',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                {% else %}
+                    <div id="directorKin" style="">
+                    <fieldset>
+                        <legend>
+                            Section C:  Next of Kin
+                        </legend>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinFirstName,{
+                                    'label': 'First Name',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinMiddleName,{
+
+                                    'label': 'Middle Name',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinLastName,{
+                                    'label': 'Last Name',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinRelationship,{
+                                    'label': 'Relationship to Applicant'
+                                }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinIdNumber,{
+                                    'label': 'ID/PP NO.',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinDateOfBirth,{
+                                    'label': 'Date of Birth',
+                                    'attr':{
+                                        'class':'js-date'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinGender,{
+                                    'label': 'Gender',
+                                    'attr':{
+                                        'class':'form-check'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinPhysicalAddress,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinCity,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinCounty,{
+                                    'attr': {'class': 'select'}})  }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinPostalAddress,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                })  }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinPostalCode,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                })  }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinTelephoneNumber,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinMobileNumber,{
+                                    'attr':{
+                                        'class':'form-control',
+                                        'placeholder':'254720123456'
+                                    },
+                                })
+
+                                }}
+                            </div>
+
+                            <div class="col-md-4">
+                                {{ form_row(profileForm.kinEmailAddress,{
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.isKinMinor,{
+                                    'label':'Is the Kin a Minor',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(profileForm.kinGuardian,{
+                                    'label': 'If Yes, indicate Guardian here:',
+                                    'attr':{
+                                        'class':'form-control'
+                                    }
+                                }) }}
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                    </div>
+            {% endif %}
+
+<br/>
+            <fieldset>
+                <legend>Section D: Bank Details</legend><br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.accountName,{
+                            'label': 'Account Holders Name',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.accountNumber,{
+                            'label': 'Account Number',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form_row(profileForm.bank,{
+                                'attr': {'class': 'select'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form_row(profileForm.bankBranch,{
+                                'label': 'Bank Branch',
+                                'attr':{'class':'form-control'}
+                            }) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form_row(profileForm.bankCode,{
+                                'label': 'Bank Code',
+                                'attr':{'class':'form-control'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.swiftCode,{
+                            'label': 'Swift Code',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row right">
+                <div class="col-sm-12" style="text-align: right">
+                    <button type="submit" class="btn btn-primary btn-lg">Save and Continue</button>
+                </div>
+            </div>
+            {{ form_end(profileForm) }}
+        </div>
+    {% endblock %}
+    {% block right %}
+    {% endblock %}

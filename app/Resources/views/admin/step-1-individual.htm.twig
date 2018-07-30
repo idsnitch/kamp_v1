@@ -1,0 +1,43 @@
+{% extends 'adminBase.htm.twig' %}
+{% block title %}Basic Corporate{% endblock %}
+{% block corporate %} active {% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title" style="color: #fff;">Corporate Profiles</h4>
+                        <p class="category">Basic Corporate Profiles</p>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table id="datatables" class="table table-striped table-no-bordered table-hover material-datatables" cellspacing="0" width="100%" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Full Names</th>
+                                <th>Created At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user.firstName }}&nbsp;{{  user.lastName }}&nbsp;</td>
+                                    <td>{{ user.createdAt | date }}
+                                    </td>
+
+                                </tr>
+                            {% else %}
+                                <tr><td class="text-primary">
+                                        No Users on Record
+
+                                    </td> </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

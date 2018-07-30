@@ -1,0 +1,315 @@
+{% extends 'base.htm.twig' %}
+{% block title %}Update Profile {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('kamp.css') }}"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+  {% block javascript %}
+
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script>
+          jQuery(document).ready(function() {
+              jQuery('.js-date').datepicker(
+                  {
+                      dateFormat: 'yy-mm-dd',
+                      changeMonth: true,
+                      changeYear: true,
+                      yearRange: '1950:2009',
+
+                  }
+              );
+          });
+      </script>
+  {% endblock %}
+{% block pageTitle %}<h2> Next of Kin - Update Profile</h2>{% endblock %}
+
+{% block component %}
+    <style>
+        .page-header{
+            display: none;
+        }
+    </style>
+
+{% endblock %}
+    {% block body %}
+        <div id="sp-component" class="col-sm-9 col-md-12">
+            {% if not profileForm.vars.valid %}
+
+                {# Loop through every form item #}
+                {% for child in profileForm.children %}
+                    {# Display the errors of the form item #}
+                    {%for error in child.vars.errors%}
+                        <p><div class="alert alert-danger">{{error.message}}</div></p>
+                    {%endfor%}
+                {%endfor%}
+
+            {%endif%}
+
+            <div class="wizard-inner wizard steps">
+                <div class="connecting-line"></div>
+                <ul role="tablist" class="nav-tabs">
+                    <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
+                                id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
+                                    class="current-info audible">current step: </span><span class="number">1</span>
+                            Personal Information</a></li>
+                    <li role="tab" class=" current" aria-disabled="true"><a id="steps-uid-0-t-1" href="#steps-uid-0-h-1"
+                                                                            aria-controls="steps-uid-0-p-1"><span
+                                    class="number">2</span> Next of Kin</a></li>
+                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                            aria-controls="steps-uid-0-p-2"><span
+                                    class="number">3</span> Documents</a></li>
+
+                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                            aria-controls="steps-uid-0-p-2"><span
+                                    class="number">4</span> Recording Samples</a></li>
+
+                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                            href="#steps-uid-0-h-3"
+                                                                            aria-controls="steps-uid-0-p-3"><span
+                                    class="number">5</span> Confirmation</a></li>
+                    <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                                 href="#steps-uid-0-h-3"
+                                                                                 aria-controls="steps-uid-0-p-3"><span
+                                    class="number">6</span> Payment</a></li>
+
+                    <li role="tab" class="disable last" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                                href="#steps-uid-0-h-3"
+                                                                                aria-controls="steps-uid-0-p-3"><span
+                                    class="number">7</span> Payment Confirmation</a></li>
+                </ul>
+            </div>
+
+
+            {{ form_start(profileForm,{ 'attr': {'class': 'steps-validation'} }) }}
+
+            <fieldset>
+                <legend>Section A: Next of Kin</legend><br/>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.kinFirstName,{
+                            'label': 'First Name',
+                            'attr':{
+                                'class':'form-control',
+                                'required':true
+                            }
+                        }) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.kinMiddleName,{
+                            'label': 'Middle Name',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.kinLastName,{
+                            'label': 'Last Name',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.kinRelationship,{
+                            'label': 'Relationship to Applicant',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.kinIdNumber,{
+                            'label': 'ID/PP NO.',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.kinDateOfBirth,{
+                            'label': 'Date of Birth',
+                            'attr':{'class':'js-date'}
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.kinGender,{
+                            'label': 'Gender',
+                            'attr':{'class':'form-check'}
+                        }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.kinPhysicalAddress,{'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.kinCity,{'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col">
+                        {{ form_row(profileForm.kinCounty,{
+                            'attr': {'class': 'select'}})  }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(profileForm.kinPostalAddress,{'attr':{'class':'form-control'}})  }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(profileForm.kinPostalCode,{'attr':{'class':'form-control'}})  }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.kinTelephoneNumber,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.kinMobileNumber,{
+                            'required':true,
+                            'attr':{'placeholder':'254720123456','class':'form-control'}
+                        })
+
+                        }}
+                    </div>
+
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.kinEmailAddress,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.isKinMinor,{
+                            'label':'Is the Kin a Minor',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.kinGuardian,{
+                            'label': 'If Yes, indicate Guardian here:',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Section B: Other Next of Kin</legend><br/>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinFirstName,{
+                            'label': 'First Name',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinMiddleName,{
+                            'label': 'Middle Name',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinLastName,{
+                            'label': 'Last Name',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.otherKinRelationship,{
+                            'label': 'Relationship to Applicant',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.otherKinIdNumber,{
+                            'label': 'ID/PP NO.',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.otherKinDateOfBirth,{
+                            'label': 'Date of Birth',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.otherKinGender,{
+                            'label': 'Gender',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.otherKinPhysicalAddress,{'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.otherKinCity,{'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinCounty,{
+                            'attr': {'class': 'select'}})  }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinPostalAddress,{'attr':{'class':'form-control'}})  }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinPostalCode,{'attr':{'class':'form-control'}})  }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinTelephoneNumber,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinMobileNumber,{
+                            'required':false,
+                            'attr':{'placeholder':'254720123456','class':'form-control'}
+                        })
+
+                        }}
+                    </div>
+
+                    <div class="col-md-4">
+                        {{ form_row(profileForm.otherKinEmailAddress,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.isOtherKinMinor,{
+                            'label':'Is the Kin a Minor',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.otherKinGuardian,{
+                            'label': 'If Yes, indicate Guardian here:',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+
+                </div>
+
+            </fieldset>
+            <div class="form-group row right">
+                <div class="col-sm-6" style="">
+                    <a href="{{ path('initial') }}" type="submit" class="btn btn-primary btn-lg">Previous</a>
+                </div>
+                <div class="col-sm-6" style="text-align: right">
+                    <button type="submit" class="btn btn-primary btn-lg">Save and Continue</button>
+                </div>
+            </div>
+            {{ form_end(profileForm) }}
+        </div>
+    {% endblock %}
+    {% block right %}
+    {% endblock %}

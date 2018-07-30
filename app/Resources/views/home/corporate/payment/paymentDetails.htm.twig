@@ -1,0 +1,15 @@
+<div id="paymentDetails">
+    {% if profile.mpesaStatus =="Success" %}
+        <ul style="list-style: none">
+            <li><b>Mpesa Confirmation Code:</b> {{ profile.mpesaVerificationCode }}</li>
+            <li><b>Mpesa Transaction Status:</b> {{ profile.mpesaStatus }}</li>
+            <li><b>Mpesa Description:</b> {{ profile.mpesaDescription }} </li>
+            <li><b>Mpesa Payment Date:</b> {{ profile.mpesaPaymentDate | date('Y-m-d H:i:s') }}  </li>
+            <li><b>Mpesa Number:</b> {{ profile.mpesaNumber }}</li>
+            <li><b>Amount:</b> {{ profile.mpesaAmount }}</li>
+
+        </ul>
+
+
+    {% endif %}
+</div>

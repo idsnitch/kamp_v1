@@ -1,0 +1,68 @@
+
+{{ form_start(form,{'attr': {'id': 'newForm' }}) }}
+<fieldset>
+    <legend>Section B: Payment</legend>
+</fieldset>
+<p>Use the form below to complete your Payment.</p>
+
+<fieldset>
+    <legend>Section 1. Mpesa Number Confirmation</legend>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.mobileNumber,{
+                'attr':{'class': 'form-control'}
+            }) }}
+        </div>
+
+    </div>
+
+</fieldset>
+<fieldset>
+    <legend>
+        Section 2: Declaration
+    </legend>
+    <div class="row">
+        <div class="col-md-12">
+            <p>I certify that the information given herein is true to the best of my knowledge and belief and do hereby indemnify KAMP from any claims that may arise. </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.idemnifyFirstName,{
+                'attr': {
+                    'class':'form-control'
+                }
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.idemnifyLastName,{
+                'attr': {
+                    'class':'form-control',
+                    'label':'Last Name'
+                }
+            }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.idemnifyAt,{
+                'attr': {
+                    'class':'js-date',
+                    'required':true,
+                    'label': 'Date'
+                }
+            }) }}
+        </div>
+    </div>
+
+</fieldset>
+<br/>
+<div class="form-group row right">
+    <div class="col-sm-6" style="">
+        <button id="new" type="submit" class="btn btn-primary btn-lg">Make Payment</button>
+    </div>
+</div>
+</div>
+{{ form_end(form) }}
+

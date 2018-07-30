@@ -1,0 +1,122 @@
+{% extends 'base.htm.twig' %}
+{% block title %}
+    Individual Membership
+{% endblock %}
+{% block body %}
+<style>
+    @media only screen and (max-width: 640px) {   
+    #sp-left,#sp-right{
+        display:none;
+    }
+    .com-content #sp-main-body, .view-article #sp-main-body{
+        margin-top:0px;
+    }
+     .com-sppagebuilder #sp-component, .com-search #sp-component, .com-content #sp-component {
+    min-width: 340px;
+}   
+    }
+</style>
+    <h2>Individual Membership</h2>
+
+    {{ form_start(onboardForm) }}
+
+        <div class="row">
+            <div class="">
+                <div class="panel registration-form">
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback">
+                                    {{ form_row(onboardForm.idNumber,{
+                                        'label': 'ID/Passport/Birth Cert no.'
+                                    }) }}
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user-plus text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback">
+                                    {{ form_row(onboardForm.firstName) }}
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user-check text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback">
+                                    {{ form_row(onboardForm.lastName) }}
+                                    <div class="form-control-feedback">
+                                        <i class="icon-user-check text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback">
+                                    {{ form_row(onboardForm.email.first,{
+                                        'label': 'Your Email'
+                                    }) }}
+                                    <div class="form-control-feedback">
+                                        <i class="icon-mention text-muted"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group has-feedback">
+                                    {{ form_row(onboardForm.email.second,{
+                                        'label': 'Repeat Email'
+                                    }) }}
+                                </div>
+                                <div class="form-control-feedback">
+                                    <i class="icon-mention text-muted"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="app_bundle_corporate_form_termsOfService" class="required">Terms & Conditions</label>                                <div>
+                                    <div style="color: red">{{ form_errors(onboardForm.termsOfService) }}</div>
+
+                                    <div class="col-md-12" style="height: 200px;overflow-y: scroll;border:1px #00f0f0 solid">
+                                        {% include 'onboard/terms.htm.twig' %}
+
+                                        <div class="checkbox">
+                                            {{ form_row(onboardForm.termsOfService,{
+                                                'label': 'Accept Terms of Service'
+                                            }) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="">
+                            <button type="submit" style="background-color: #e22532;text-align: left" class="btn bg-teal-400 btn-labeled btn-labeled-left ml-6" formnovalidate><b><i
+                                            class="fa fa-plus-circle"></i></b> Register
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- /registration form -->
+
+
+    {{ form_end(onboardForm) }}
+            <div>
+                **Kindly read and accept our terms and conditions before you proceed </a>
+            </div>
+
+{% endblock %}
+
+
+

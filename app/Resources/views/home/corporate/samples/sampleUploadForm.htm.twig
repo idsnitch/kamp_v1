@@ -1,0 +1,138 @@
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('#app_bundle_new_recording_form_sampleType').on('change', function() {
+            if (this.value === "On Behalf of Artist"){
+                jQuery("#onArtist").fadeIn("slow");
+
+                var label1 = $("#onArtist label");
+                label1.addClass("required");
+            }else if(this.value === "On Behalf of Deceased Producer"){
+                jQuery("#onDeceased").fadeIn("slow");
+                var label2 = $("#onDeceased label");
+                label2.addClass("required");
+            }else{
+                jQuery("#onArtist").fadeOut("slow");
+                jQuery("#onDeceased").fadeOut("slow");
+            }
+
+        });
+    });
+</script>
+{{ form_start(form,{'attr': {'id': 'newForm' }}) }}
+<fieldset>
+    <legend>Section 1. Album Details</legend>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.format,{
+
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.sampleType,{
+
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+    </div>
+
+    <div class="row" id="onDeceased" style="display: none">
+        <div class="col-md-6">
+            {{ form_row(form.letterOfAdministration,{
+
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.deathCertificate,{
+
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+    </div>
+    <div class="row" id="onArtist" style="display: none">
+        <div class="col-md-6">
+            {{ form_row(form.artistContract) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.albumTitle,{
+                'attr':{'class': 'form-control'}
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.mainArtist,{
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.dateOfProduction,{
+                'attr':{'class': 'js-date'}
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.countryOfProduction,{
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.recordingStudio) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.countryOfRecording,{
+                'attr': {'class': 'select'}
+            }) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.documentFile,{
+                'label':'Declaration Form',
+                'attr': {'class':'customFileInput'}
+            }) }}
+
+        </div>
+
+    </div>
+</fieldset>
+<fieldset>
+    <legend>
+        Section 2: Tracks
+    </legend>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.recordingFile,{
+                'label':'Track 1',
+                'attr': {'class':'customFileInput'}
+            }) }}
+        </div>
+    </div>
+
+</fieldset>
+<br/>
+<div class="form-group row right">
+    <div class="col-sm-6" style="">
+        <button id="new" type="submit" class="btn btn-primary btn-lg">Upload</button>
+    </div>
+</div>
+</div>
+{{ form_end(form) }}
+
+{% if profile.corporateMusicSamples | length > 0 %}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('#continue').fadeIn("slow");
+        });
+    </script>
+{% endif %}

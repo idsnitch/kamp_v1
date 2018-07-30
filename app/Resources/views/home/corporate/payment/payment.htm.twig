@@ -1,0 +1,191 @@
+{% extends 'base.htm.twig' %}
+{% block title %}Mpesa Payment - Update Profile {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('kamp.css') }}"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+    {% block javascript %}
+        <!-- Core JS files -->
+        <script type="text/javascript">
+
+
+        </script>
+        <script src="{{ asset('loko/mod_vina_treeview_menus/assets/js/jquery.cookie.js') }}"
+                type="text/javascript"></script>
+        <script src="{{ asset('loko/mod_vina_treeview_menus/assets/js/jquery.treeview.js') }}"
+                type="text/javascript"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            jQuery(document).ready(function() {
+                jQuery('.js-date').datepicker(
+                    {
+                        dateFormat: 'yy-mm-dd',
+
+                    }
+                );
+            });
+        </script>
+
+    {% endblock %}
+
+{% block pageTitle %}<h2> Payment - Update Profile</h2>{% endblock %}
+
+{% block component %}
+    <style>
+        .page-header{
+            display: none;
+        }
+    </style>
+
+{% endblock %}
+    {% block body %}
+<div id="sp-component" class="col-sm-9 col-md-12">
+
+
+    <div class="wizard-inner wizard steps">
+        <div class="connecting-line"></div>
+        <ul role="tablist" class="nav-tabs">
+            <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
+                        id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
+                            class="current-info audible">current step: </span><span class="number">1</span>
+                    Business Information</a></li>
+
+            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                    aria-controls="steps-uid-0-p-2"><span
+                            class="number">3</span> Documents</a></li>
+
+            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                   aria-controls="steps-uid-0-p-2"><span
+                            class="number">3</span> Recording Samples</a></li>
+            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                   href="#steps-uid-0-h-3"
+                                                                   aria-controls="steps-uid-0-p-3"><span
+                            class="number">4</span> Confirmation</a></li>
+            <li role="tab" class="current" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                         href="#steps-uid-0-h-3"
+                                                                         aria-controls="steps-uid-0-p-3"><span
+                            class="number">5</span> Payment</a></li>
+            <li role="tab" class="disable last" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                        href="#steps-uid-0-h-3"
+                                                                        aria-controls="steps-uid-0-p-3"><span
+                            class="number">6</span> Payment Confirmation</a></li>
+        </ul>
+
+    </div>
+
+    <div class="steps-validation">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>Section A: Instructions</legend>
+                </fieldset>
+                <p>   <img src="{{ asset('images/M-PESA.jpg') }}" width="150"/>
+                </p>
+                <p>For this part to work, your phone screen must be unlocked.Kindly unlock and keep your screen unlocked before you proceed. </p>
+                <p>When ready, confirm that the Mpesa Number below is in the format <b><i>254720123456</i>. The number has to be in this exact format. </b></p>
+                <p> To use an alternate number, edit the number below and put the number you intend to use. Ensure the format above is followed.</p>
+            </div>
+        </div>
+        {{ render(controller("AppBundle:Home:corporatePaymentDetails")) }}
+        <div class="steps-validation">
+            <div id="message" style="display: none">
+                <div class="alert alert-success" role="alert">
+                    Payment Confirmed, thank you for Choosing KAMP!
+                </div>
+            </div>
+            <div id="saving" style="display: none">
+                <div class="alert alert-warning" role="alert">
+                    <span class="fa fa-spin fa-spinner"></span> Confirming payment,check your Phone...
+                </div>
+            </div>
+            <div id="error" style="display: none">
+                <div class="alert alert-danger" role="alert">
+                    Payment not processed. Check the format of the Mpesa number and ensure your phone is unlocked.
+                </div>
+            </div>
+
+            {{ form_start(form,{'attr': {'id': 'newForm' }}) }}
+            <fieldset>
+                <legend>Section B: Payment</legend>
+            </fieldset>
+            <p>Use the form below to complete your Payment.</p>
+
+            <fieldset>
+                <legend>Section 1. Mpesa Number Confirmation</legend>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_row(form.mobileNumber,{
+                            'attr':{'class': 'form-control'}
+                        }) }}
+                    </div>
+
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <legend>
+                    Section 2: Declaration
+                </legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>I certify that the information given herein is true to the best of my knowledge and belief and do hereby indemnify KAMP from any claims that may arise. </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.idemnifyFirstName,{
+                            'attr': {
+                                'class':'form-control'
+                            }
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.idemnifyLastName,{
+                            'attr': {
+                                'class':'form-control',
+                                'label':'Last Name'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.idemnifyAt,{
+                            'attr': {
+                                'class':'js-date',
+                                'required':true,
+                                'label': 'Date'
+                            }
+                        }) }}
+                    </div>
+                </div>
+
+            </fieldset>
+            <br/>
+        </div>
+
+
+        <br/>
+            <div class="form-group row right">
+                <div class="col-sm-6" style="text-align: left">
+                    <a href="{{ path('corporate-recording-sample') }}" type="submit" class="btn btn-primary btn-lg">Previous</a>
+                </div>
+                <div class="col-sm-6" style="text-align: right">
+                    <button type="submit" class="btn btn-primary btn-lg">Complete</button>
+                </div>
+
+            </div>
+
+        </div>
+    {{ form_end(form) }}
+
+
+        {% endblock %}
+        {% block right %}
+{% endblock %}
