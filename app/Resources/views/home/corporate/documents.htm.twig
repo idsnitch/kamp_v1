@@ -10,6 +10,69 @@
                 type="text/javascript"></script>
         <script src="{{ asset('loko/mod_vina_treeview_menus/assets/js/jquery.treeview.js') }}"
                 type="text/javascript"></script>
+        <script type="text/javascript">
+            // prepare the form when the DOM is ready
+               // bind to the form's submit event
+                    jQuery('#newForm').submit(function (e) {
+                        var ajaxRequest;
+
+                        //Prevent Normal Submit
+                        e.preventDefault();
+
+                        jQuery(".message").fadeOut("slow");
+                        jQuery(".error").fadeOut("slow");
+
+                        jQuery("#newForm").fadeOut("slow");
+                        jQuery('#saving').fadeIn("slow");
+
+                        var form = document.getElementById("newForm");
+                        var elements = form.elements;
+                        for (var i = 0, len = elements.length; i < len; ++i) {
+                            elements[i].readOnly = true;
+                        }
+                        // get form values
+                        var values = jQuery(this).serialize();
+
+                        jQuery.ajax({
+                            url: jQuery(this).data('url'),
+                            data: new FormData(this),
+                            contentType: false,
+                            cache:false,
+                            processData: false,
+                            method: 'POST'
+                        }).done(function () {
+                            jQuery('#saving').fadeOut("slow");
+                            jQuery('#message').fadeIn("slow");
+
+                            jQuery.get("/profile/uploaded/corp/docs", function( data ) {
+                                jQuery('.uploaded').html(data);
+                            });
+                            jQuery.get("/profile/upload/corp/form", function( data ) {
+                                jQuery('#newForm').html(data);
+                            });
+                            setTimeout(function () {
+                                jQuery("#message").fadeOut("slow");
+                            }, 3000);
+
+                            jQuery("#newForm").fadeIn("slow");
+
+
+                        }).fail(function () {
+                            jQuery('#saving').fadeOut("slow");
+
+                            jQuery("#error").fadeIn("slow");
+
+                            setTimeout(function () {
+                                jQuery("#error").fadeOut("slow");
+                            }, 3000);
+                            jQuery("#newForm").fadeIn("slow");
+
+                        })
+
+
+                    });
+
+        </script>
     {% endblock %}
 
 {% block pageTitle %}<h2> Documents - Update Profile</h2>{% endblock %}
@@ -23,77 +86,7 @@
 
 {% endblock %}
     {% block body %}
-    <script type="text/javascript">
-        // prepare the form when the DOM is ready
-        jQuery(document).ready(function () {
-            jQuery('body').on('click','#new',function (e) {
-                // bind to the form's submit event
-                jQuery('#newForm').submit(function (e) {
-                    var ajaxRequest;
 
-                    //Prevent Normal Submit
-                    e.preventDefault();
-
-                    jQuery(".message").fadeOut("slow");
-                    jQuery(".error").fadeOut("slow");
-
-                    jQuery("#newForm").fadeOut("slow");
-                    jQuery('#saving').fadeIn("slow");
-
-                    var form = document.getElementById("newForm");
-                    var elements = form.elements;
-                    for (var i = 0, len = elements.length; i < len; ++i) {
-                        elements[i].readOnly = true;
-                    }
-                    // get form values
-                    var values = jQuery(this).serialize();
-
-                    jQuery.ajax({
-                        url: jQuery(this).data('url'),
-                        data: new FormData(this),
-                        contentType: false,
-                        cache:false,
-                        processData: false,
-                        method: 'POST'
-                    }).done(function () {
-                        jQuery('#saving').fadeOut("slow");
-                        jQuery('#message').fadeIn("slow");
-
-                        jQuery.get("/profile/uploaded/corp/docs", function( data ) {
-                            jQuery('.uploaded').html(data);
-                        });
-                        jQuery.get("/profile/upload/corp/form", function( data ) {
-                            jQuery('#newForm').html(data);
-                        });
-                        setTimeout(function () {
-                            jQuery("#message").fadeOut("slow");
-                        }, 3000);
-
-                        jQuery('#newForm').trigger("reset");
-                        jQuery("#newForm").fadeIn("slow");
-
-
-                    }).fail(function () {
-                        jQuery('#saving').fadeOut("slow");
-
-                        jQuery("#error").fadeIn("slow");
-
-                        setTimeout(function () {
-                            jQuery("#error").fadeOut("slow");
-                        }, 3000);
-                        jQuery('#newForm').trigger("reset");
-                        jQuery("#newForm").fadeIn("slow");
-
-                    })
-
-
-                });
-
-            });
-
-        });
-
-    </script>
 
 <div id="sp-component" class="col-sm-9 col-md-12">
             {% if not form.vars.valid %}

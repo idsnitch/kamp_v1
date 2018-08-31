@@ -79,6 +79,10 @@ class User implements UserInterface
     private $userType="Individual";
     /**
      * @ORM\Column(type="string",nullable=true)
+     */
+    private $producerRelationship;
+    /**
+     * @ORM\Column(type="string",nullable=true)
      * @Assert\NotBlank(message="Your Phone Number has to be provided")
      */
     private $phoneNumber;
@@ -175,6 +179,22 @@ class User implements UserInterface
     public function setProfile($profile)
     {
         $this->profile = $profile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProducerRelationship()
+    {
+        return $this->producerRelationship;
+    }
+
+    /**
+     * @param mixed $producerRelationship
+     */
+    public function setProducerRelationship($producerRelationship)
+    {
+        $this->producerRelationship = $producerRelationship;
     }
 
     /**

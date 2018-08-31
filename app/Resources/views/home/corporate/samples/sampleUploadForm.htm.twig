@@ -1,18 +1,21 @@
 <script type="text/javascript">
-    jQuery(document).ready(function() {
-        jQuery('#app_bundle_new_recording_form_sampleType').on('change', function() {
-            if (this.value === "On Behalf of Artist"){
-                jQuery("#onArtist").fadeIn("slow");
+    jQuery(document).ready(function () {
+        jQuery('#app_bundle_new_recording_form_declarationType').on('change', function () {
+            if (this.value === "Sound") {
+                jQuery("#sound").fadeIn("slow");
+                jQuery("#video").fadeOut("slow");
 
-                var label1 = $("#onArtist label");
+                var label1 = $("#sound label");
                 label1.addClass("required");
-            }else if(this.value === "On Behalf of Deceased Producer"){
-                jQuery("#onDeceased").fadeIn("slow");
-                var label2 = $("#onDeceased label");
+            } else if (this.value === "Video") {
+                jQuery("#video").fadeIn("slow");
+
+                var label2 = $("#video .col-md-12 div label");
                 label2.addClass("required");
-            }else{
-                jQuery("#onArtist").fadeOut("slow");
-                jQuery("#onDeceased").fadeOut("slow");
+            } else {
+                jQuery("#sound").fadeOut("slow");
+
+                jQuery("#video").fadeIn("slow");
             }
 
         });
@@ -23,40 +26,20 @@
     <legend>Section 1. Album Details</legend>
 
     <div class="row">
+
+        <div class="col-md-6">
+            {{ form_row(form.declarationType,{
+                'attr':{'class': 'select'}
+            }) }}
+        </div>
         <div class="col-md-6">
             {{ form_row(form.format,{
 
                 'attr': {'class': 'select'}
             }) }}
         </div>
-        <div class="col-md-6">
-            {{ form_row(form.sampleType,{
-
-                'attr': {'class': 'select'}
-            }) }}
-        </div>
     </div>
 
-    <div class="row" id="onDeceased" style="display: none">
-        <div class="col-md-6">
-            {{ form_row(form.letterOfAdministration,{
-
-                'attr': {'class': 'select'}
-            }) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.deathCertificate,{
-
-                'attr': {'class': 'select'}
-            }) }}
-        </div>
-    </div>
-    <div class="row" id="onArtist" style="display: none">
-        <div class="col-md-6">
-            {{ form_row(form.artistContract) }}
-        </div>
-
-    </div>
     <div class="row">
         <div class="col-md-6">
             {{ form_row(form.albumTitle,{
@@ -73,8 +56,9 @@
 
     <div class="row">
         <div class="col-md-6">
-            {{ form_row(form.dateOfProduction,{
-                'attr':{'class': 'js-date'}
+            {{ form_row(form.yearProduction,{
+                'attr':{'class': 'form-control'},
+                'label':'Year of Production'
             }) }}
         </div>
         <div class="col-md-6">
@@ -95,10 +79,11 @@
         </div>
 
     </div>
-    <div class="row">
+    <div class="row" id="video">
         <div class="col-md-12">
+            <label for="app_bundle_new_recording_form_declarationForm" class="required">DeclarationForm</label>
             {{ form_row(form.documentFile,{
-                'label':'Declaration Form',
+                'label':false,
                 'attr': {'class':'customFileInput'}
             }) }}
 
@@ -110,7 +95,44 @@
     <legend>
         Section 2: Tracks
     </legend>
+    <div id="sound" style="display: none">
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.musicCategory,{
+                    'attr': {'class':'select'}
+                }) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.musicStyle,{
+                    'attr': {'class':'select'}
+                }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.backgroundVocals,{
+                    'attr': {'class':'form-control'}
+                }) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.trackProgramming,{
+                    'attr': {'class':'form-control'}
+                }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.otherInstrumentalists,{
+                    'attr': {'class':'form-control'}
+                }) }}
+            </div>
+
+        </div>
+    </div>
     <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.recordingTitle) }}
+        </div>
         <div class="col-md-6">
             {{ form_row(form.recordingFile,{
                 'label':'Track 1',

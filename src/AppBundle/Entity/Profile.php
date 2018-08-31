@@ -37,10 +37,14 @@ class Profile
      */
     private $applicantName;
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string",nullable=true)
      */
     private $producerName;
+    /**
+     * @ORM\Column(type="string",nullable=true)
+     */
+    private $producerRelationship;
+
     /**
      * @ORM\Column(type="string",nullable=true)
      */
@@ -113,6 +117,7 @@ class Profile
      * @ORM\Column(type="string",nullable=true)
      */
     private $website;
+
     /**
      * @ORM\Column(type="string",nullable=true)
      */
@@ -481,6 +486,22 @@ class Profile
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProducerRelationship()
+    {
+        return $this->producerRelationship;
+    }
+
+    /**
+     * @param mixed $producerRelationship
+     */
+    public function setProducerRelationship($producerRelationship)
+    {
+        $this->producerRelationship = $producerRelationship;
     }
 
     /**

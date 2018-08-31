@@ -413,7 +413,8 @@ class MemberController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $resetToken = base64_encode(random_bytes(10));
+        //$resetToken = base64_encode(random_bytes(10));
+        $resetToken = $user->getId();
 
         $user->setPlainPassword($resetToken."12");
         $user->setPasswordResetToken($resetToken);
@@ -450,7 +451,8 @@ class MemberController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $resetToken = base64_encode(random_bytes(10));
+        //$resetToken = base64_encode(random_bytes(10));
+        $resetToken = $user->getId();
 
         $user->setPlainPassword($resetToken."12");
         $user->setPasswordResetToken($resetToken);
@@ -469,7 +471,7 @@ class MemberController extends Controller
     protected function sendEmail($firstName,$subject,$emailAddress,$twigTemplate,$code){
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom('prisk@creative-junk.com','PRISK Online Portal Team')
+            ->setFrom('portal@kamp.or.ke','KAMP Online Portal Team')
             ->setTo($emailAddress)
             ->setBody(
                 $this->renderView(

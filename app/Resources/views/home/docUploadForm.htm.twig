@@ -1,5 +1,5 @@
 {% if app.user.userType == "Deceased Producer" %}
-    {% if profile.profileDocuments | length < 6 %}
+    {% if profile.profileDocuments | length < 5 %}
 
         {{ form_start(form,{'attr': {'id': 'newForm' }}) }}
 

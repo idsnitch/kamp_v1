@@ -33,12 +33,7 @@
                                         <a title="Manage Profile" href="{{ path('review-corporate-profile', {'id': user.id }) }}" class="btn btn-simple btn-warning btn-icon edit"><i class="material-icons">dvr</i></a>
                                     </td>
                                 </tr>
-                            {% else %}
-                                <tr><td class="text-primary">
-                                        No Users on Record
-
-                                    </td> </tr>
-                            {% endfor %}
+                        {% endfor %}
                             </tbody>
                         </table>
                     </div>

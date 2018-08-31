@@ -1,7 +1,8 @@
 {% extends 'base.htm.twig' %}
 {% block title %}Mpesa Payment - Update Profile {% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('kamp.css') }}"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -34,20 +35,19 @@
                             url: jQuery(this).data('url'),
                             data: new FormData(this),
                             contentType: false,
-                            cache:false,
+                            cache: false,
                             processData: false,
                             method: 'POST'
                         }).done(function () {
                             jQuery('#saving').fadeOut("slow");
                             jQuery('#message').fadeIn("slow");
 
-                            jQuery.get("/profile/payment/details", function( data ) {
+                            jQuery.get("/profile/payment/details", function (data) {
                                 jQuery('#paymentDetails').html(data);
                             });
                             setTimeout(function () {
                                 jQuery("#message").fadeOut("slow");
                             }, 3000);
-
 
 
                         }).fail(function () {
@@ -89,11 +89,9 @@
 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
-            jQuery(document).ready(function() {
+            jQuery(document).ready(function () {
                 jQuery('.js-date').datepicker(
-                    {
-
-                    }
+                    {}
                 );
             });
         </script>
@@ -104,7 +102,7 @@
 
 {% block component %}
     <style>
-        .page-header{
+        .page-header {
             display: none;
         }
     </style>
@@ -116,36 +114,7 @@
 
     <div class="wizard-inner wizard steps">
         <div class="connecting-line"></div>
-        {% if app.user.userType == "Deceased Producer" %}
-            <ul role="tablist" class="nav-tabs">
-                <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
-                            id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
-                                class="current-info audible">current step: </span><span class="number">1</span>
-                        Next of Kin</a></li>
-                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                        aria-controls="steps-uid-0-p-2"><span
-                                class="number">2</span> Documents</a></li>
-
-                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                        aria-controls="steps-uid-0-p-2"><span
-                                class="number">3</span> Recordings</a></li>
-                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                        href="#steps-uid-0-h-3"
-                                                                        aria-controls="steps-uid-0-p-3"><span
-                                class="number">4</span> Confirmation</a></li>
-                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                        href="#steps-uid-0-h-3"
-                                                                        aria-controls="steps-uid-0-p-3"><span
-                                class="number">5</span> Payment</a></li>
-
-                <li role="tab" class="current last" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                            href="#steps-uid-0-h-3"
-                                                                            aria-controls="steps-uid-0-p-3"><span
-                                class="number">6</span> Payment Confirmation</a></li>
-            </ul>
-        {% else %}
-
-            <ul role="tablist" class="nav-tabs">
+        <ul role="tablist" class="nav-tabs">
             <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
                         id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
                             class="current-info audible">current step: </span><span class="number">1</span>
@@ -158,78 +127,82 @@
                             class="number">3</span> Documents</a></li>
 
             <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                   aria-controls="steps-uid-0-p-2"><span
+                                                                    aria-controls="steps-uid-0-p-2"><span
                             class="number">4</span> Recording Samples</a></li>
             <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
                                                                     href="#steps-uid-0-h-3"
                                                                     aria-controls="steps-uid-0-p-3"><span
                             class="number">5</span> Confirm</a></li>
             <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                         href="#steps-uid-0-h-3"
-                                                                         aria-controls="steps-uid-0-p-3"><span
+                                                                    href="#steps-uid-0-h-3"
+                                                                    aria-controls="steps-uid-0-p-3"><span
                             class="number">6</span> Payment</a></li>
             <li role="tab" class="current last" aria-disabled="true"><a id="steps-uid-0-t-3"
                                                                         href="#steps-uid-0-h-3"
                                                                         aria-controls="steps-uid-0-p-3"><span
                             class="number">7</span> Payment Confirmation</a></li>
         </ul>
-        {% endif %}
+
     </div>
 
     <div class="steps-validation">
-       {% if profile.mpesaStatus =="Success" %}
-           <div class="row">
-               <div class="col-md-12">
-                   <fieldset>
-                       <legend>Section A: Payment Complete</legend>
-                   </fieldset>
-                   <p>   <img src="{{ asset('images/M-PESA.jpg') }}" width="150"/>
-                   </p>
-                   <p>You payment has been confirmed. </p>
-                   </div>
-           </div>
-
-       {% else %}
-        <div class="row">
-            <div class="col-md-12">
-                <fieldset>
-                    <legend>Section A: Instructions</legend>
-                </fieldset>
-                <p>   <img src="{{ asset('images/M-PESA.jpg') }}" width="150"/>
-                </p>
-                <p>1. Kindly unlock and keep your screen unlocked before you proceed. </p>
-                <p>2. When requested, put in your Mpesa PIN and complete the payment. The Registration fee is <b>Ksh 10,000</b> payable to <b>Kenya Association of Music Producers</b>.</p>
-                <p>3. Wait for the Mpesa Confirmation Message</p>
-                <p>4. Click the confirm button below to Confirm Payment</p>
-            </div>
-        </div>
-        {{ render(controller("AppBundle:Home:paymentDetails")) }}
-        <div class="steps-validation">
-            <div id="message" style="display: none">
-                <div class="alert alert-success" role="alert">
-                    Payment Confirmed, we have emailed you a confirmation of the Payment.
-                </div>
-            </div>
-            <div id="saving" style="display: none">
-                <div class="alert alert-warning" role="alert">
-                    <span class="fa fa-spin fa-spinner"></span> Confirming Payment...
-                </div>
-            </div>
-            <div id="error" style="display: none">
-                <div class="alert alert-danger" role="alert">
-                    Payment not Confirmed. Wait a few minutes and try again. If the payment did not complete on your Mpesa, click the previous button below to try again.
-                </div>
-            </div>
-            {{ render(controller("AppBundle:Home:paymentConfirmationForm")) }}
-
-            <br/>
-            <div class="form-group row right">
-                <div class="col-sm-6" style="text-align: left">
-                    <a href="{{ path('payment') }}" type="submit" class="btn btn-primary btn-lg">Previous</a>
+        {% if profile.mpesaStatus =="Success" %}
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend>Section A: Payment Complete</legend>
+                    </fieldset>
+                    <p><img src="{{ asset('images/M-PESA.jpg') }}" width="150"/>
+                    </p>
+                    <p>You payment has been confirmed. </p>
                 </div>
             </div>
 
-        </div>
+        {% else %}
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend>Section A: Instructions</legend>
+                    </fieldset>
+                    <p><img src="{{ asset('images/M-PESA.jpg') }}" width="150"/>
+                    </p>
+                    <p>1. Kindly unlock and keep your screen unlocked before you proceed. </p>
+                    <p>2. When requested, put in your Mpesa PIN and complete the payment. The Registration fee is <b>Ksh
+                            10,000</b> payable to <b>Kenya Association of Music Producers</b>.</p>
+                    <p>3. Wait for the Mpesa Confirmation Message</p>
+                    <p>4. Click the confirm button below to Confirm Payment</p>
+                </div>
+            </div>
+            {{ render(controller("AppBundle:Home:paymentDetails")) }}
+            <div class="steps-validation">
+                <div id="message" style="display: none">
+                    <div class="alert alert-success" role="alert">
+                        Payment Confirmed, we have emailed you a confirmation of the Payment.
+                    </div>
+                </div>
+                <div id="saving" style="display: none">
+                    <div class="alert alert-warning" role="alert">
+                        <span class="fa fa-spin fa-spinner"></span> Confirming Payment...
+                    </div>
+                </div>
+                <div id="error" style="display: none">
+                    <div class="alert alert-danger" role="alert">
+                        Payment not Confirmed. Wait a few minutes and try again. If the payment did not complete on your
+                        Mpesa, click the previous button below to try again.
+                    </div>
+                </div>
+                {{ render(controller("AppBundle:Home:paymentConfirmationForm")) }}
+
+                <br/>
+                {% if profile.mpesaStatus =="Success" %}
+                {% else %}
+                    <div class="form-group row right">
+                        <div class="col-sm-6" style="text-align: left">
+                            <a href="{{ path('payment') }}" type="submit" class="btn btn-primary btn-lg">Previous</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         {% endif %}
 
         {% endblock %}

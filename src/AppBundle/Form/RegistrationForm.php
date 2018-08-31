@@ -30,6 +30,20 @@ class RegistrationForm extends AbstractType
                 'placeholder'=>'Select',
                 'label'=>'Account Type'
             ))
+            ->add('producerRelationship', ChoiceType::class, array(
+                'choices' => array(
+                    'Wife' => 'Wife',
+                    'Husband'=>'Husband',
+                    'Mother' => 'Mother',
+                    'Brother' => 'Brother',
+                    'Sister' => 'Sister',
+                    'Son'=>'Son',
+                    'Daughter'=>'Daughter'
+                ),
+                'placeholder'=>'Select',
+                'label'=>false,
+                'required'=>false
+            ))
             ->add('email',RepeatedType::class,[
                 'type' => EmailType::class
             ])

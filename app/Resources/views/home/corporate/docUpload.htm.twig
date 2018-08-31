@@ -26,11 +26,15 @@
             <li>&nbsp;</li>
             <li><input type="checkbox" disabled id="idcopy1" value="">4. Valid National Identity Card or Passport of Director 1.</li>
             <li>&nbsp;</li>
-
+             {% if profile.numberOfDirectors ==2 %}
             <li><input type="checkbox" disabled id="passport2" value="">5. Passport-Size Photo Of Director 2 </li>
             <li>&nbsp;</li>
             <li><input type="checkbox" disabled id="idcopy2" value="">6. Valid National Identity Card or Passport of Director 2.</li>
             <li>&nbsp;</li>
+                 {% else %}
+                         <li><input type="checkbox" disabled id="kinidcopy" value="">5. Valid Next of Kin National Identity Card or Passport or Birth Certificate.</li>
+                         <li>&nbsp;</li>
+                 {% endif %}
         {% endif %}
     </ul>
 

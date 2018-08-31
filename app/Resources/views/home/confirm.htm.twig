@@ -121,35 +121,37 @@
 
     <div class="wizard-inner wizard steps">
         <div class="connecting-line"></div>
-        <ul role="tablist" class="nav-tabs">
-            <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
-                        id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
-                            class="current-info audible">current step: </span><span class="number">1</span>
-                    Personal Information</a></li>
-            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-1" href="#steps-uid-0-h-1"
-                                                                    aria-controls="steps-uid-0-p-1"><span
-                            class="number">2</span> Next of Kin</a></li>
-            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                    aria-controls="steps-uid-0-p-2"><span
-                            class="number">3</span> Documents</a></li>
 
-            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                    aria-controls="steps-uid-0-p-2"><span
-                            class="number">4</span> Recording Samples</a></li>
-            <li role="tab" class="current" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                   href="#steps-uid-0-h-3"
-                                                                   aria-controls="steps-uid-0-p-3"><span
-                            class="number">5</span> Confirm</a></li>
-            <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                    href="#steps-uid-0-h-3"
-                                                                    aria-controls="steps-uid-0-p-3"><span
-                            class="number">6</span> Payment</a></li>
+            <ul role="tablist" class="nav-tabs">
+                <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
+                            id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
+                                class="current-info audible">current step: </span><span class="number">1</span>
+                        Personal Information</a></li>
+                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-1" href="#steps-uid-0-h-1"
+                                                                        aria-controls="steps-uid-0-p-1"><span
+                                class="number">2</span> Next of Kin</a></li>
+                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                       aria-controls="steps-uid-0-p-2"><span
+                                class="number">3</span> Documents</a></li>
 
-            <li role="tab" class="disable last" aria-disabled="true"><a id="steps-uid-0-t-3"
+                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
+                                                                        aria-controls="steps-uid-0-p-2"><span
+                                class="number">4</span> Recording Samples</a></li>
+                <li role="tab" class="current" aria-disabled="true"><a id="steps-uid-0-t-3"
                                                                         href="#steps-uid-0-h-3"
                                                                         aria-controls="steps-uid-0-p-3"><span
-                            class="number">7</span> Payment Confirmation</a></li>
-        </ul>
+                                class="number">5</span> Confirmation</a></li>
+                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                        href="#steps-uid-0-h-3"
+                                                                        aria-controls="steps-uid-0-p-3"><span
+                                class="number">6</span> Payment</a></li>
+
+                <li role="tab" class="disable last" aria-disabled="true"><a id="steps-uid-0-t-3"
+                                                                            href="#steps-uid-0-h-3"
+                                                                            aria-controls="steps-uid-0-p-3"><span
+                                class="number">7</span> Payment Confirmation</a></li>
+            </ul>
+
     </div>
 
     <div class="steps-validation">
@@ -161,269 +163,446 @@
                 <p>Below is a confirmation of the details you have filled in so far. Kindly confirm the details.Use the
                     back button to go to previous steps to update any details.
                 <p/>
+                 {% if app.user.userType == "Deceased Producer" %}
                 <fieldset>
-                    <legend class="title">Section B: Applicant Details</legend>
+                    <legend class="title">Section A: Producer Name</legend>
                     <br>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6">
-                                <div><label for="app_bundle_applicant_details_form_applicantName" class="required">Applicant
-                                        name</label><br/>{{ profile.applicantName }}</div>
+                                <div><label for="app_bundle_applicant_details_form_applicantName" class="required">Producer
+                                        name</label><br/>{{ profile.producerName }}</div>
                             </div>
-                            <div class="col-md-6">
-                                <div><label for="app_bundle_applicant_details_form_idNumber"
-                                            class="required">ID/PPN</label><br/>{{ profile.idNumber }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
 
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_itaxPin" class="required">Pin Number
-                                    (I-TAX Registered Pin)</label><br/>{{ profile.itaxPin }}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_dateOfBirth" class="required">Date of
-                                    Birth</label><br/>{{ profile.dateOfBirth | date('d-m-Y') }}</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div><label class="required">Gender</label>
-                                <br/> {{ profile.gender }}
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_physicalAddress" class="required">Physical
-                                    address</label><br/>{{ profile.physicalAddress }}</div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_city" class="required">City</label><br/>{{ profile.city }}</div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_county"
-                                        class="required">County</label><br/>{{ profile.county }}</div>
-                        </div>
-                        <div class="col">
-                            <div><label for="app_bundle_applicant_details_form_postalAddress">Postal
-                                    address</label><br/>{{ profile.postalAddress }}</div>
-                        </div>
-                        <div class="col">
-                            <div><label for="app_bundle_applicant_details_form_postalCode" class="required">Postal
-                                    code</label><br/>{{ profile.postalCode }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_telephoneNumber">Telephone number</label><br/>{{ profile.telephoneNumber }}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_mobileNumber" class="required">Mobile
-                                    number</label><br/>{{ profile.mobileNumber }}</div>
-                        </div>
-                    </div>
-                    <div class="row">
-
-
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_emailAddress" class="required">Email
-                                    address</label><br/>{{ profile.emailAddress }}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_emailAddress2">Email
-                                    address2</label><br/>{{ profile.emailAddress2 }}</div>
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_website">Website</label><br/>{{ profile.website }}</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div><label class="required">Are you a member of other collecting societies?</label><br/>
-                                {% if  profile.isCollectingSocietiesMember%}
-                                Yes
-                                {% else %}
-                                No
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_collectingSocieties">If Yes, Name them
-                                    here:</label><br/>{{ profile.collectingSocieties }}</div>
-                        </div>
-                    </div>
-
-                </fieldset>
-                <fieldset>
-                    <legend>Section C : Bank Details</legend>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_accountName" class="required">Account
-                                    Holders Name</label><br/>{{ profile.accountName }}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_accountNumber" class="required">Account
-                                    Number</label><br/>{{ profile.accountNumber }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div><label for="app_bundle_applicant_details_form_bank"
-                                            class="required">Bank</label><br/>{{ profile.bank }}</div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div><label for="app_bundle_applicant_details_form_bankBranch" class="required">Bank
-                                        Branch</label><br/>{{ profile.bankBranch }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div><label for="app_bundle_applicant_details_form_bankCode">Bank Code</label><br/>{{ profile.bankCode }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div><label for="app_bundle_applicant_details_form_swiftCode">Swift Code</label><br/>{{ profile.swiftCode }}</div>
                         </div>
                     </div>
                 </fieldset>
-                <fieldset>
-                    <legend>Section D : Next of Kin Details</legend>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinFirstName" class="required">First Name</label>
-                                <br/>
-                                {{ profile.kinFirstName }}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinMiddleName" class="required">Middle Name</label>
-                                <br/>
-                                {{ profile.kinMiddleName }}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinLastName" class="required">Last Name</label>
-                                <br/>
-                                {{ profile.kinLastName }}</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinRelationship" class="required">Relationship to Applicant</label>
-                                <br/>{{ profile.kinRelationship }}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinIdNumber" class="required">ID/PP NO.</label>
-                                <br/>
-                                {{ profile.kinIdNumber }}
-                                </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinDateOfBirth" class="required">Date of Birth</label>
-                                <br/>{{ profile.kinDateOfBirth | date('d-m-Y') }}</div>
-                        </div>
-                    </div>
-                    <div class="row">
+                     <fieldset>
+                         <legend class="title">Section B: Next of Kin Details</legend>
+                         <br>
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div><label for="app_bundle_applicant_details_form_applicantName" class="required">Applicant
+                                             name</label><br/>{{ profile.applicantName }}</div>
+                                 </div>
+                                 <div class="col-md-6">
+                                     <div><label for="app_bundle_applicant_details_form_idNumber"
+                                                 class="required">ID/PPN</label><br/>{{ profile.idNumber }}
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
 
-                        <div class="col-md-4">
-                            <div><label class="required">Gender</label>
-                                <br/>
-                                {{ profile.kinGender }}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinPhysicalAddress">Kin physical address</label>
-                                <br/>
-                                {{ profile.kinPhysicalAddress }}
-                                </div>
-                        </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_itaxPin" class="required">Pin Number
+                                         (I-TAX Registered Pin)</label><br/>{{ profile.itaxPin }}</div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_dateOfBirth" class="required">Date of
+                                         Birth</label><br/>{{ profile.dateOfBirth | date('d-m-Y') }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label class="required">Gender</label>
+                                     <br/> {{ profile.gender }}
+                                 </div>
+                             </div>
 
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinCity">Kin city</label>
-                                <br/>{{ profile.kinCity }}</div>
-                        </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_physicalAddress" class="required">Physical
+                                         address</label><br/>{{ profile.physicalAddress }}</div>
+                             </div>
 
-                    </div>
-                    <div class="row">
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_city" class="required">City</label><br/>{{ profile.city }}</div>
+                             </div>
 
-                        <div class="col">
-                            <div><label for="app_bundle_profile_kin_form_kinCounty" class="required">Kin county</label>
-                                <br/>
-                                {{ profile.kinCounty }}
-                            </div>  </div>
-                        <div class="col">
-                            <div><label for="app_bundle_profile_kin_form_kinPostalAddress">Kin postal address</label>
-                                <br/>
-                                {{ profile.kinPostalAddress }}
-                            </div>         </div>
-                        <div class="col">
-                            <div><label for="app_bundle_profile_kin_form_kinPostalCode">Kin postal code</label>
-                                <br/>{{ profile.kinPostalCode }}
-                            </div>     </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinTelephoneNumber">Kin telephone number</label>
-                                <br/>
-                                {{ profile.kinTelephoneNumber }}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinMobileNumber" class="required">Kin mobile number</label>
-                                <br/>
-                                {{ profile.kinMobileNumber }}
-                            </div>
-                        </div>
+                         </div>
+                         <div class="row">
 
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinEmailAddress">Kin email address</label>
-                                <br/>
-                                {{ profile.kinEmailAddress }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_isKinMinor">Is the Kin a Minor</label>
-                                <br/>
-                            {% if profile.isKinMinor %}
-                            Yes
-                            {% else %}
-                            No
-                            {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div><label for="app_bundle_profile_kin_form_kinGuardian">If Yes, indicate Guardian here:</label>
-                                <br/>
-                                {{ profile.kinGuardian }}</div>
-                            </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_county"
+                                             class="required">County</label><br/>{{ profile.county }}</div>
+                             </div>
+                             <div class="col">
+                                 <div><label for="app_bundle_applicant_details_form_postalAddress">Postal
+                                         address</label><br/>{{ profile.postalAddress }}</div>
+                             </div>
+                             <div class="col">
+                                 <div><label for="app_bundle_applicant_details_form_postalCode" class="required">Postal
+                                         code</label><br/>{{ profile.postalCode }}
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_telephoneNumber">Telephone number</label><br/>{{ profile.telephoneNumber }}</div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_mobileNumber" class="required">Mobile
+                                         number</label><br/>{{ profile.mobileNumber }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
 
-                    </div>
-                </fieldset>
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_emailAddress" class="required">Email
+                                         address</label><br/>{{ profile.emailAddress }}</div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_emailAddress2">Email
+                                         address2</label><br/>{{ profile.emailAddress2 }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_website">Website</label><br/>{{ profile.website }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label class="required">Are you a member of other collecting societies?</label><br/>
+                                     {% if  profile.isCollectingSocietiesMember%}
+                                         Yes
+                                     {% else %}
+                                         No
+                                     {% endif %}
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_collectingSocieties">If Yes, Name them
+                                         here:</label><br/>{{ profile.collectingSocieties }}</div>
+                             </div>
+                         </div>
+
+                     </fieldset>
+                     <fieldset>
+                         <legend>Section C : Bank Details</legend>
+                         <br>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_accountName" class="required">Account
+                                         Holders Name</label><br/>{{ profile.accountName }}</div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_accountNumber" class="required">Account
+                                         Number</label><br/>{{ profile.accountNumber }}
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <div><label for="app_bundle_applicant_details_form_bank"
+                                                 class="required">Bank</label><br/>{{ profile.bank }}</div>
+                                 </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <div><label for="app_bundle_applicant_details_form_bankBranch" class="required">Bank
+                                             Branch</label><br/>{{ profile.bankBranch }}</div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <div><label for="app_bundle_applicant_details_form_bankCode">Bank Code</label><br/>{{ profile.bankCode }}
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_swiftCode">Swift Code</label><br/>{{ profile.swiftCode }}</div>
+                             </div>
+                         </div>
+                     </fieldset>
+                 {% else %}
+                     <fieldset>
+                         <legend class="title">Section B: Applicant Details</legend>
+                         <br>
+                         <div class="form-group">
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <div><label for="app_bundle_applicant_details_form_applicantName" class="required">Applicant
+                                             name</label><br/>{{ profile.applicantName }}</div>
+                                 </div>
+                                 <div class="col-md-6">
+                                     <div><label for="app_bundle_applicant_details_form_idNumber"
+                                                 class="required">ID/PPN</label><br/>{{ profile.idNumber }}
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_itaxPin" class="required">Pin Number
+                                         (I-TAX Registered Pin)</label><br/>{{ profile.itaxPin }}</div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_dateOfBirth" class="required">Date of
+                                         Birth</label><br/>{{ profile.dateOfBirth | date('d-m-Y') }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label class="required">Gender</label>
+                                     <br/> {{ profile.gender }}
+                                 </div>
+                             </div>
+
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_physicalAddress" class="required">Physical
+                                         address</label><br/>{{ profile.physicalAddress }}</div>
+                             </div>
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_city" class="required">City</label><br/>{{ profile.city }}</div>
+                             </div>
+
+                         </div>
+                         <div class="row">
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_county"
+                                             class="required">County</label><br/>{{ profile.county }}</div>
+                             </div>
+                             <div class="col">
+                                 <div><label for="app_bundle_applicant_details_form_postalAddress">Postal
+                                         address</label><br/>{{ profile.postalAddress }}</div>
+                             </div>
+                             <div class="col">
+                                 <div><label for="app_bundle_applicant_details_form_postalCode" class="required">Postal
+                                         code</label><br/>{{ profile.postalCode }}
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_telephoneNumber">Telephone number</label><br/>{{ profile.telephoneNumber }}</div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_mobileNumber" class="required">Mobile
+                                         number</label><br/>{{ profile.mobileNumber }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_emailAddress" class="required">Email
+                                         address</label><br/>{{ profile.emailAddress }}</div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_emailAddress2">Email
+                                         address2</label><br/>{{ profile.emailAddress2 }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_website">Website</label><br/>{{ profile.website }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label class="required">Are you a member of other collecting societies?</label><br/>
+                                     {% if  profile.isCollectingSocietiesMember%}
+                                         Yes
+                                     {% else %}
+                                         No
+                                     {% endif %}
+                                 </div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_collectingSocieties">If Yes, Name them
+                                         here:</label><br/>{{ profile.collectingSocieties }}</div>
+                             </div>
+                         </div>
+
+                     </fieldset>
+                     <fieldset>
+                         <legend>Section C-I : Bank Details</legend>
+                         <br>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_accountName" class="required">Account
+                                         Holders Name</label><br/>{{ profile.accountName }}</div>
+                             </div>
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_accountNumber" class="required">Account
+                                         Number</label><br/>{{ profile.accountNumber }}
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <div><label for="app_bundle_applicant_details_form_bank"
+                                                 class="required">Bank</label><br/>{{ profile.bank }}</div>
+                                 </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <div><label for="app_bundle_applicant_details_form_bankBranch" class="required">Bank
+                                             Branch</label><br/>{{ profile.bankBranch }}</div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <div class="form-group">
+                                     <div><label for="app_bundle_applicant_details_form_bankCode">Bank Code</label><br/>{{ profile.bankCode }}
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div class="col-md-6">
+                                 <div><label for="app_bundle_applicant_details_form_swiftCode">Swift Code</label><br/>{{ profile.swiftCode }}</div>
+                             </div>
+                         </div>
+                     </fieldset>
+                     <fieldset>
+                         <legend>Section C-II: Mpesa Payment Number</legend>
+                         <br/>
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <label for="app_bundle_profile_kin_form_kinFirstName">Mpesa Payment Number</label>
+                                 <br/>
+                                 {{ profile.paymentMpesaNumber }}
+                             </div>
+                         </div>
+
+                     </fieldset>
+                     <fieldset>
+                         <legend>Section D : Next of Kin Details</legend>
+                         <br>
+                         <div class="row">
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinFirstName" class="required">First Name</label>
+                                     <br/>
+                                     {{ profile.kinFirstName }}</div>
+                             </div>
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinMiddleName" class="required">Middle Name</label>
+                                     <br/>
+                                     {{ profile.kinMiddleName }}</div>
+                             </div>
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinLastName" class="required">Last Name</label>
+                                     <br/>
+                                     {{ profile.kinLastName }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinRelationship" class="required">Relationship to Applicant</label>
+                                     <br/>{{ profile.kinRelationship }}
+                                 </div>
+                             </div>
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinIdNumber" class="required">ID/PP NO.</label>
+                                     <br/>
+                                     {{ profile.kinIdNumber }}
+                                 </div>
+                             </div>
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinDateOfBirth" class="required">Date of Birth</label>
+                                     <br/>{{ profile.kinDateOfBirth | date('d-m-Y') }}</div>
+                             </div>
+                         </div>
+                         <div class="row">
+
+                             <div class="col-md-4">
+                                 <div><label class="required">Gender</label>
+                                     <br/>
+                                     {{ profile.kinGender }}
+                                 </div>
+                             </div>
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinPhysicalAddress">Kin physical address</label>
+                                     <br/>
+                                     {{ profile.kinPhysicalAddress }}
+                                 </div>
+                             </div>
+
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinCity">Kin city</label>
+                                     <br/>{{ profile.kinCity }}</div>
+                             </div>
+
+                         </div>
+                         <div class="row">
+
+                             <div class="col">
+                                 <div><label for="app_bundle_profile_kin_form_kinCounty" class="required">Kin county</label>
+                                     <br/>
+                                     {{ profile.kinCounty }}
+                                 </div>  </div>
+                             <div class="col">
+                                 <div><label for="app_bundle_profile_kin_form_kinPostalAddress">Kin postal address</label>
+                                     <br/>
+                                     {{ profile.kinPostalAddress }}
+                                 </div>         </div>
+                             <div class="col">
+                                 <div><label for="app_bundle_profile_kin_form_kinPostalCode">Kin postal code</label>
+                                     <br/>{{ profile.kinPostalCode }}
+                                 </div>     </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinTelephoneNumber">Kin telephone number</label>
+                                     <br/>
+                                     {{ profile.kinTelephoneNumber }}</div>
+                             </div>
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinMobileNumber" class="required">Kin mobile number</label>
+                                     <br/>
+                                     {{ profile.kinMobileNumber }}
+                                 </div>
+                             </div>
+
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinEmailAddress">Kin email address</label>
+                                     <br/>
+                                     {{ profile.kinEmailAddress }}
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_isKinMinor">Is the Kin a Minor</label>
+                                     <br/>
+                                     {% if profile.isKinMinor %}
+                                         Yes
+                                     {% else %}
+                                         No
+                                     {% endif %}
+                                 </div>
+                             </div>
+                             <div class="col-md-4">
+                                 <div><label for="app_bundle_profile_kin_form_kinGuardian">If Yes, indicate Guardian here:</label>
+                                     <br/>
+                                     {{ profile.kinGuardian }}</div>
+                             </div>
+
+                         </div>
+                     </fieldset>
+                 {% endif %}
             </div>
         </div>
 

@@ -119,7 +119,7 @@ crysoft_mpesa:
         endpoint:           https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest                   # The M-Pesa API Endpoint.
         token_endpoint:     https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials   # Mpesa API Token Endpoint
         status_endpoint:    https://sandbox.safaricom.co.ke/mpesa/transactionstatus/v1/query                  # Mpesa API Status Endpoint
-        callback_url:       http://id.crysoftlabs.com/mpesa/updated/                                   # The callback URL to be queried on transaction completion.
+        callback_url:       http://id.crysoftlabs.com/mpesa/update/                                   # The callback URL to be queried on transaction completion.
         callback_method:    POST               # The callback method to be used.
         paybill_number:     174379               # The merchant's Paybill number.
         pass_key:           bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919                     # The SAG Passkey given on registration.

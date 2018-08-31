@@ -22,6 +22,7 @@
 
                     }
                 );
+
             });
         </script>
     {% endblock %}
@@ -137,12 +138,7 @@
                         <div class="col-md-6">
                             {{ form_row(profileForm.companyName,{'attr':{'class':'form-control'}}) }}
                         </div>
-                        <div class="col-md-6">
-                            {{ form_row(profileForm.tradingName,{
-                                'label': 'Trading Name ( if different from Company Name)',
-                                'attr':{'class':'form-control'},
-                            }) }}
-                        </div>
+
                     </div>
                 </div>
                 <div class="row">
@@ -265,7 +261,9 @@
                                 {{ form_row(profileForm.secondDirectorIdNumber) }}
                             </div>
                         </div>
-                    <input type="hidden" name="app_bundle_corporate_details_form_numberOfDirectors" id="app_bundle_corporate_details_form_numberOfDirectors" value="1">
+                    <div style="display: none">
+                        {{ form_row(profileForm.numberOfDirectors) }}
+                    </div>
                 {% else %}
                     <div class="row">
                         <div class="col-md-12">
@@ -685,6 +683,19 @@
                         }) }}
                     </div>
                 </div>
+            </fieldset>
+            <fieldset>
+                <legend>Section E: Mpesa Payment Number</legend>
+                <br/>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(profileForm.paymentMpesaNumber,{
+                            'label': 'Mpesa Number',
+                            'attr':{'class':'form-control'}
+                        }) }}
+                    </div>
+                </div>
+
             </fieldset>
             <div class="form-group row right">
                 <div class="col-sm-12" style="text-align: right">

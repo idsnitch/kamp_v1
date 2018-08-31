@@ -85,6 +85,7 @@ class AdminController extends Controller
         $user->setIsActive(true);
         $user->setIsTermsAccepted(true);
         $user->setPhoneNumber("1234");
+        $user->setMiddleName('Admin');
 
         $user->setPlainPassword(base64_encode(random_bytes(10)));
         $user->setAccountCreatedBy($admin);

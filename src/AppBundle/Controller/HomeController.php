@@ -89,11 +89,12 @@ class HomeController extends Controller
             }
             $em->persist($prof);
             $em->flush();
-            if ($user->getUserType()=="Deceased Producer"){
+            /*if ($user->getUserType()=="Deceased Producer"){
                 return $this->redirectToRoute('documents');
             }else {
                 return $this->redirectToRoute("next-of-kin");
-            }
+            }*/
+            return $this->redirectToRoute("next-of-kin");
         }
 
         return $this->render(':home:initial.htm.twig',[
@@ -228,20 +229,32 @@ class HomeController extends Controller
                 if (!in_array('DEATH-CERTIFICATE', $docName)) {
                     $docChoices['Death Certificate'] = 'DEATH-CERTIFICATE';
                 }
+                //Create Choices based on Missing documents
+                if (!in_array('PASSPORT-PHOTO', $docName)) {
+                    $docChoices['Next of Kin Colour Passport-Size Photo'] = 'PASSPORT-PHOTO';
+                }
+                if (!in_array('NATIONAL-ID-COPY', $docName)) {
+                    $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'NATIONAL-ID-COPY';
+                }
+                if (!in_array('KRA-CERTIFICATE', $docName)) {
+                    $docChoices['Copy of Next of Kin Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-CERTIFICATE';
+                }
+            }else{
+                //Create Choices based on Missing documents
+                if (!in_array('PASSPORT-PHOTO', $docName)) {
+                    $docChoices['Colour Passport-Size Photo'] = 'PASSPORT-PHOTO';
+                }
+                if (!in_array('NATIONAL-ID-COPY', $docName)) {
+                    $docChoices['Copy of Valid National ID/Passport/Birth Certificate'] = 'NATIONAL-ID-COPY';
+                }
+                if (!in_array('KRA-CERTIFICATE', $docName)) {
+                    $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-CERTIFICATE';
+                }
+                if (!in_array('NEXT-OF-KIN-CERTIFICATE', $docName)) {
+                    $docChoices['Copy of Valid National ID/Passport or Birth Certificate Next of Kin'] = 'NEXT-OF-KIN-CERTIFICATE';
+                }
             }
-            //Create Choices based on Missing documents
-            if (!in_array('PASSPORT-PHOTO', $docName)) {
-                $docChoices['Colour Passport-Size Photo'] = 'PASSPORT-PHOTO';
-            }
-            if (!in_array('NATIONAL-ID-COPY', $docName)) {
-                $docChoices['Copy of Valid National ID/Passport/Birth Certificate'] = 'NATIONAL-ID-COPY';
-            }
-            if (!in_array('KRA-CERTIFICATE', $docName)) {
-                $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-CERTIFICATE';
-            }
-            if (!in_array('NEXT-OF-KIN-CERTIFICATE', $docName)) {
-                $docChoices['Copy of Valid National ID/Passport or Birth Certificate Next of Kin'] = 'NEXT-OF-KIN-CERTIFICATE';
-            }
+
         }else {
             if ($user->getUserType="Deceased Producer"){
                 $docChoices['Letters of Administration'] = 'ADMINISTRATION-LETTER';
@@ -338,18 +351,28 @@ class HomeController extends Controller
                 $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 1'] = 'DIR1-ID-COPY';
             }
             if ($profile->getCompanyType()!="Sole Proprietorship"){
-                if (!in_array('DIR2-PASSPORT-PHOTO', $docName)) {
-                    $docChoices['Colour Passport-Size Photo Of Director 2'] = 'DIR2-PASSPORT-PHOTO';
+                if ($profile->getNumberOfDirectors()==2){
+                    if (!in_array('DIR2-PASSPORT-PHOTO', $docName)) {
+                        $docChoices['Colour Passport-Size Photo Of Director 2'] = 'DIR2-PASSPORT-PHOTO';
+                    }
+                    if (!in_array('DIR2-ID-COPY', $docName)) {
+                        $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 2'] = 'DIR2-ID-COPY';
+                    }
+                    if (!in_array('KRA-PIN', $docName)) {
+                        $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
+                    }
+                }else{
+                    if (!in_array('KIN-ID', $docName)) {
+                        $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'KIN-ID';
+                    }
+                    if (!in_array('KRA-PIN', $docName)) {
+                        $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
+                    }
                 }
-                if (!in_array('DIR2-ID-COPY', $docName)) {
-                    $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 2'] = 'DIR2-ID-COPY';
-                }
-                if (!in_array('KRA-PIN', $docName)) {
-                    $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
-                }
+
             }else{
-                if (!in_array('NEXT-OF-KIN-ID', $docName)) {
-                    $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'NEXT-OF-KIN-ID';
+                if (!in_array('KIN-ID', $docName)) {
+                    $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'KIN-ID';
                 }
                 if (!in_array('KRA-PIN', $docName)) {
                     $docChoices['Copy of your Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
@@ -362,17 +385,22 @@ class HomeController extends Controller
                 $docChoices['Copy of Certificate of Registration or Incorporation'] = 'REG-CERT';
                 $docChoices['Colour Passport-Size Photo Of Director 1'] = 'DIR1-PASSPORT-PHOTO';
                 $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 1'] = 'DIR1-ID-COPY';
+                if($profile->getNumberOfDirectors()==2){
+                    $docChoices['Colour Passport-Size Photo Of Director 2'] = 'DIR2-PASSPORT-PHOTO';
+                    $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 2'] = 'DIR2-ID-COPY';
 
-                $docChoices['Colour Passport-Size Photo Of Director 2'] = 'DIR2-PASSPORT-PHOTO';
-                $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 2'] = 'DIR2-ID-COPY';
-                $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
+                }else{
+                    $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
+                    $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'KIN-ID';
+
+                }
 
             }else{
                 $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
                 $docChoices['Copy of Certificate of Business Name Registration'] = 'REG-CERT';
                 $docChoices['Colour Passport-Size Photo'] = 'DIR1-PASSPORT-PHOTO';
                 $docChoices['Copy of your Valid National ID/Passport/Birth Certificate Of Director 1'] = 'DIR1-ID-COPY';
-                $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'NEXT-OF-KIN-ID';
+                $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'KIN-ID';
                 $docChoices['Copy of your Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
 
             }
@@ -433,7 +461,7 @@ class HomeController extends Controller
             if (!in_array('DIR1-ID-COPY', $docName)) {
                 $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 1'] = 'DIR1-ID-COPY';
             }
-            if ($profile->getCompanyType()!="Sole Proprietorship"){
+            if ($profile->getCompanyType()!="Sole Proprietorship"&&$profile->getNumberOfDirectors()==2){
                 if (!in_array('DIR2-PASSPORT-PHOTO', $docName)) {
                     $docChoices['Colour Passport-Size Photo Of Director 2'] = 'DIR2-PASSPORT-PHOTO';
                 }
@@ -444,8 +472,8 @@ class HomeController extends Controller
                     $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
                 }
             }else{
-                if (!in_array('NEXT-OF-KIN-ID', $docName)) {
-                    $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'NEXT-OF-KIN-ID';
+                if (!in_array('KIN-ID', $docName)) {
+                    $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'KIN-ID';
                 }
                 if (!in_array('KRA-PIN', $docName)) {
                     $docChoices['Copy of your Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
@@ -458,17 +486,20 @@ class HomeController extends Controller
                 $docChoices['Copy of Certificate of Registration or Incorporation'] = 'REG-CERT';
                 $docChoices['Colour Passport-Size Photo Of Director 1'] = 'DIR1-PASSPORT-PHOTO';
                 $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 1'] = 'DIR1-ID-COPY';
+                if ($profile->getNumberOfDirectors()==2) {
+                    $docChoices['Colour Passport-Size Photo Of Director 2'] = 'DIR2-PASSPORT-PHOTO';
+                    $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 2'] = 'DIR2-ID-COPY';
+                }else {
+                    $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'KIN-ID';
 
-                $docChoices['Colour Passport-Size Photo Of Director 2'] = 'DIR2-PASSPORT-PHOTO';
-                $docChoices['Copy of Valid National ID/Passport/Birth Certificate Of Director 2'] = 'DIR2-ID-COPY';
-                $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
-
+                    $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
+                }
             }else{
                 $docChoices['Copy of Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
                 $docChoices['Copy of Certificate of Business Name Registration'] = 'REG-CERT';
                 $docChoices['Colour Passport-Size Photo'] = 'DIR1-PASSPORT-PHOTO';
                 $docChoices['Copy of your Valid National ID/Passport/Birth Certificate Of Director 1'] = 'DIR1-ID-COPY';
-                $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'NEXT-OF-KIN-ID';
+                $docChoices['Copy of Valid Next of Kin National ID/Passport/Birth Certificate'] = 'KIN-ID';
                 $docChoices['Copy of your Kenya Revenue Authority ITAX Updated Pin Certificate'] = 'KRA-PIN';
 
             }
@@ -524,7 +555,8 @@ class HomeController extends Controller
             $em->persist($sample);
             $em->flush();
 
-            return new Response(null,200);
+            return $this->redirectToRoute('recording-sample');
+
         }elseif($form->isSubmitted()&&!$form->isValid()){
             return new Response(null,500);
         }
@@ -606,7 +638,7 @@ class HomeController extends Controller
             $em->persist($sample);
             $em->flush();
 
-            return new Response(null,200);
+            return $this->redirectToRoute('corporate-recording-sample');
         }elseif($form->isSubmitted()&&!$form->isValid()){
             return new Response(null,500);
         }
@@ -720,6 +752,7 @@ class HomeController extends Controller
             $referenceId = time();
 
             $prof->setProfileStatus("Pending");
+            $prof->setIdemnifyAt(new \DateTime());
             $prof->setReferenceId($referenceId);
             $em->persist($prof);
             $em->flush();
@@ -809,6 +842,7 @@ class HomeController extends Controller
 
         if ($form->isSubmitted()){
           if ($profile->getMpesaStatus()=="Success"){
+              //$transactionArray
               return new Response(null,200);
           }else{
               return new Response(null,500);
@@ -858,6 +892,7 @@ class HomeController extends Controller
             $referenceId = time();
             $prof->setProfileStatus("Pending");
             $prof->setReferenceId($referenceId);
+            $prof->setIdemnifyAt(new \DateTime());
             $em->persist($prof);
             $em->flush();
 

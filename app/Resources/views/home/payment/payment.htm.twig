@@ -49,34 +49,6 @@
 
     <div class="wizard-inner wizard steps">
         <div class="connecting-line"></div>
-        {% if app.user.userType == "Deceased Producer" %}
-            <ul role="tablist" class="nav-tabs">
-                <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
-                            id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
-                                class="current-info audible">current step: </span><span class="number">1</span>
-                        Next of Kin</a></li>
-                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                        aria-controls="steps-uid-0-p-2"><span
-                                class="number">2</span> Documents</a></li>
-
-                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                        aria-controls="steps-uid-0-p-2"><span
-                                class="number">3</span> Recordings</a></li>
-                <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                        href="#steps-uid-0-h-3"
-                                                                        aria-controls="steps-uid-0-p-3"><span
-                                class="number">4</span> Confirmation</a></li>
-                <li role="tab" class="current" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                       href="#steps-uid-0-h-3"
-                                                                       aria-controls="steps-uid-0-p-3"><span
-                                class="number">5</span> Payment</a></li>
-
-                <li role="tab" class="disable last" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                            href="#steps-uid-0-h-3"
-                                                                            aria-controls="steps-uid-0-p-3"><span
-                                class="number">6</span> Payment Confirmation</a></li>
-            </ul>
-        {% else %}
 
             <ul role="tablist" class="nav-tabs">
             <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
@@ -106,7 +78,6 @@
                                                                         aria-controls="steps-uid-0-p-3"><span
                             class="number">7</span> Payment Confirmation</a></li>
         </ul>
-        {% endif %}
     </div>
 
     <div class="steps-validation">
@@ -185,17 +156,6 @@
                         }) }}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        {{ form_row(form.idemnifyAt,{
-                            'attr': {
-                                'class':'js-date',
-                                'required':true,
-                                'label': 'Date'
-                            }
-                        }) }}
-                    </div>
-                </div>
 
             </fieldset>
             <br/>
@@ -204,10 +164,10 @@
 
         <br/>
             <div class="form-group row right">
-                <div class="col-sm-6" style="text-align: left">
+               <!-- <div class="col-sm-6" style="text-align: left">
                     <a href="{{ path('recording-sample') }}" type="submit" class="btn btn-primary btn-lg">Previous</a>
-                </div>
-                <div class="col-sm-6" style="text-align: right">
+                </div> -->
+                <div class="col-sm-12" style="text-align: right">
                     <button type="submit" class="btn btn-primary btn-lg">Complete</button>
                 </div>
 

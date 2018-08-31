@@ -86,16 +86,16 @@ class SecurityController extends Controller
         ]);
     }
     /**
-     * @Route("/account/{code}/reset-password",name="user-reset-password")
+     * @Route("/account/{id}/reset-password",name="user-reset-password")
      */
-    public function resetPasswordAction(Request $request,$code){
+    public function resetPasswordAction(Request $request,User $user){
         $em = $this->getDoctrine()->getManager();
-
+/*
         $user = $em->getRepository("AppBundle:User")
             ->findOneBy([
                 'passwordResetToken'=>$code
             ]);
-
+*/
         $form = $this->createForm(ResetPasswordForm::class,$user);
 
         $form->handleRequest($request);

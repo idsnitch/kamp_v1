@@ -2,24 +2,36 @@
     <ul>
         <ul style="list-style: none">
 
-            <li>
-                <input type="checkbox" disabled id="passport" value="">1. A Coloured Passport Size photograph
-            </li>
-            <li>&nbsp;</li>
-            <li><input type="checkbox" disabled id="idcopy" value="">2. Valid National Identity Card, Passport or Birth
-                Certificate
-            </li>
-            <li>&nbsp;</li>
-            <li><input type="checkbox" disabled id="kra" value="">3. Kenya Revenue Authority ITAX Pin Certificate.</li>
-            <li>&nbsp;</li>
-            <li><input type="checkbox" disabled id="nextofkin" value="">4. Valid National Identity Card, Passport or
-                Birth Certificate of Next of Kin.
-            </li>
+
             {% if app.user.userType=="Deceased Producer" %}
+                <li>
+                    <input type="checkbox" disabled id="passport" value="">1. A Coloured Passport Size photograph
+                </li>
                 <li>&nbsp;</li>
-                <li><input type="checkbox" disabled id="administration" value="">5. Letters of Administration.</li>
+                <li><input type="checkbox" disabled id="idcopy" value="">2. Valid National Identity Card, Passport or Birth
+                    Certificate
+                </li>
                 <li>&nbsp;</li>
-                <li><input type="checkbox" disabled id="deathcertificate" value="">6. Death Certificate.</li>
+                <li><input type="checkbox" disabled id="kra" value="">3. Kenya Revenue Authority ITAX Pin Certificate.</li>
+
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="administration" value="">4. Letters of Administration.</li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="deathcertificate" value="">5. Death Certificate.</li>
+            {% else %}
+                <li>
+                    <input type="checkbox" disabled id="passport" value="">1. A Coloured Passport Size photograph
+                </li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="idcopy" value="">2. Valid National Identity Card, Passport or Birth
+                    Certificate
+                </li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="kra" value="">3. Kenya Revenue Authority ITAX Pin Certificate.</li>
+                <li>&nbsp;</li>
+                <li><input type="checkbox" disabled id="nextofkin" value="">4. Valid National Identity Card, Passport or
+                    Birth Certificate of Next of Kin.
+                </li>
             {% endif %}
         </ul>
     </ul>

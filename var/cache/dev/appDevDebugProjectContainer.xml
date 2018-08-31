@@ -525,7 +525,7 @@
         <parameter key="endpoint">https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest</parameter>
         <parameter key="token_endpoint">https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials</parameter>
         <parameter key="status_endpoint">https://sandbox.safaricom.co.ke/mpesa/transactionstatus/v1/query</parameter>
-        <parameter key="callback_url">http://id.crysoftlabs.com/mpesa/updated/</parameter>
+        <parameter key="callback_url">http://id.crysoftlabs.com/mpesa/update/</parameter>
         <parameter key="callback_method">POST</parameter>
         <parameter key="paybill_number">174379</parameter>
         <parameter key="pass_key">bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919</parameter>
@@ -677,7 +677,7 @@
                 <tag name="cache.pool" clearer="cache.default_clearer"/>
                 <argument>2hd-TKiC3z</argument>
                 <argument>0</argument>
-                <argument>YPWe47O5fxTATJ-f-yHDnK</argument>
+                <argument>GZo8AfePCaTe3C8bMIz67W</argument>
                 <argument>J:\kamp_beta\var\cache\dev/pools</argument>
                 <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
                 <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -860,7 +860,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>11cdRjYlOP</argument>
       <argument>0</argument>
-      <argument>YPWe47O5fxTATJ-f-yHDnK</argument>
+      <argument>GZo8AfePCaTe3C8bMIz67W</argument>
       <argument>J:\kamp_beta\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -870,7 +870,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>c1qUjZzyE7</argument>
       <argument>0</argument>
-      <argument>YPWe47O5fxTATJ-f-yHDnK</argument>
+      <argument>GZo8AfePCaTe3C8bMIz67W</argument>
       <argument>J:\kamp_beta\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1910,7 +1910,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>5b5eea8f8c22c6.52678338</argument>
+            <argument>5b899cc87c43e4.92960575</argument>
           </service>
         </argument>
       </argument>
@@ -2132,7 +2132,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>5b5eea8f8c22c6.52678338</argument>
+            <argument>5b899cc87c43e4.92960575</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>

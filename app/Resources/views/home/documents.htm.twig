@@ -6,6 +6,78 @@
 {% endblock %}
     {% block javascript %}
         <!-- Core JS files -->
+        <script type="text/javascript">
+
+            // bind to the form's submit event
+            jQuery('#newForm').submit(function (e) {
+                var ajaxRequest;
+
+                //Prevent Normal Submit
+                e.preventDefault();
+
+                jQuery(".message").fadeOut("slow");
+                jQuery(".error").fadeOut("slow");
+
+                jQuery("#newForm").fadeOut("slow");
+                jQuery('#saving').fadeIn("slow");
+
+                var form = document.getElementById("newForm");
+                var elements = form.elements;
+                for (var i = 0, len = elements.length; i < len; ++i) {
+                    elements[i].readOnly = true;
+                }
+                // get form values
+                var values = jQuery(this).serialize();
+
+                jQuery.ajax({
+                    url: jQuery(this).data('url'),
+                    data: new FormData(this),
+                    contentType: false,
+                    cache:false,
+                    processData: false,
+                    method: 'POST'
+                }).done(function () {
+                    jQuery('#saving').fadeOut("slow");
+                    jQuery('#message').fadeIn("slow");
+
+                    jQuery.get("/profile/uploaded/docs", function( data ) {
+                        jQuery('.uploaded').html(data);
+                    });
+                    jQuery.get("/profile/upload/docs/form", function( data ) {
+                        jQuery('#newForm').html(data);
+                    });
+                    setTimeout(function () {
+                        jQuery("#message").fadeOut("slow");
+                    }, 3000);
+
+                    // jQuery('#newForm').trigger("reset");
+                    jQuery("#newForm").fadeIn("slow");
+
+
+                }).fail(function () {
+                    jQuery('#saving').fadeOut("slow");
+
+                    jQuery("#error").fadeIn("slow");
+
+                    setTimeout(function () {
+                        jQuery("#error").fadeOut("slow");
+                    }, 3000);
+                    //jQuery('#newForm').trigger("reset");
+                    jQuery("#newForm").fadeIn("slow");
+
+                })
+
+
+            });
+
+            jQuery('#continue').click(function () {
+//                    alert('button clicked');
+                window.location='{{ path('recording-sample') }}';
+            });
+
+
+        </script>
+
     {% endblock %}
 
 {% block pageTitle %}<h2> Documents - Update Profile</h2>{% endblock %}
@@ -19,80 +91,6 @@
 
 {% endblock %}
     {% block body %}
-        <script type="text/javascript">
-            // prepare the form when the DOM is ready
-            jQuery(document).ready(function () {
-                jQuery('body').on('click','#new',function (e) {
-                    // bind to the form's submit event
-                    jQuery('#newForm').submit(function (e) {
-                        var ajaxRequest;
-
-                        //Prevent Normal Submit
-                        e.preventDefault();
-
-                        jQuery(".message").fadeOut("slow");
-                        jQuery(".error").fadeOut("slow");
-
-                        jQuery("#newForm").fadeOut("slow");
-                        jQuery('#saving').fadeIn("slow");
-
-                        var form = document.getElementById("newForm");
-                        var elements = form.elements;
-                        for (var i = 0, len = elements.length; i < len; ++i) {
-                            elements[i].readOnly = true;
-                        }
-                        // get form values
-                        var values = jQuery(this).serialize();
-
-                        jQuery.ajax({
-                            url: jQuery(this).data('url'),
-                            data: new FormData(this),
-                            contentType: false,
-                            cache:false,
-                            processData: false,
-                            method: 'POST'
-                        }).done(function () {
-                            jQuery('#saving').fadeOut("slow");
-                            jQuery('#message').fadeIn("slow");
-
-                            jQuery.get("/profile/uploaded/docs", function( data ) {
-                                jQuery('.uploaded').html(data);
-                            });
-                            jQuery.get("/profile/upload/docs/form", function( data ) {
-                                jQuery('#newForm').html(data);
-                            });
-                            setTimeout(function () {
-                                jQuery("#message").fadeOut("slow");
-                            }, 3000);
-
-                            // jQuery('#newForm').trigger("reset");
-                            jQuery("#newForm").fadeIn("slow");
-
-
-                        }).fail(function () {
-                            jQuery('#saving').fadeOut("slow");
-
-                            jQuery("#error").fadeIn("slow");
-
-                            setTimeout(function () {
-                                jQuery("#error").fadeOut("slow");
-                            }, 3000);
-                            //jQuery('#newForm').trigger("reset");
-                            jQuery("#newForm").fadeIn("slow");
-
-                        })
-
-
-                    });
-
-                })
-                jQuery('#continue').click(function () {
-//                    alert('button clicked');
-                  window.location={{ path('recording-sample') }}
-                })
-            });
-
-        </script>
 
         <div id="sp-component" class="col-sm-9 col-md-12">
             {% if not form.vars.valid %}
@@ -109,34 +107,6 @@
 
             <div class="wizard-inner wizard steps">
                 <div class="connecting-line"></div>
-                {% if app.user.userType == "Deceased Producer" %}
-                    <ul role="tablist" class="nav-tabs">
-                        <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
-                                    id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
-                                        class="current-info audible">current step: </span><span class="number">1</span>
-                                Next of Kin</a></li>
-                        <li role="tab" class="current" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                               aria-controls="steps-uid-0-p-2"><span
-                                        class="number">2</span> Documents</a></li>
-
-                        <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-2" href="#steps-uid-0-h-2"
-                                                                                aria-controls="steps-uid-0-p-2"><span
-                                        class="number">3</span> Recordings</a></li>
-                        <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                                href="#steps-uid-0-h-3"
-                                                                                aria-controls="steps-uid-0-p-3"><span
-                                        class="number">4</span> Confirmation</a></li>
-                        <li role="tab" class="disabled" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                                href="#steps-uid-0-h-3"
-                                                                                aria-controls="steps-uid-0-p-3"><span
-                                        class="number">5</span> Payment</a></li>
-
-                        <li role="tab" class="disable last" aria-disabled="true"><a id="steps-uid-0-t-3"
-                                                                                    href="#steps-uid-0-h-3"
-                                                                                    aria-controls="steps-uid-0-p-3"><span
-                                        class="number">6</span> Payment Confirmation</a></li>
-                    </ul>
-                {% else %}
                 <ul role="tablist" class="nav-tabs">
                     <li role="tab" class="first disabled" aria-disabled="false" aria-selected="true"><a
                                 id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span
@@ -166,7 +136,6 @@
                                                                                 aria-controls="steps-uid-0-p-3"><span
                                     class="number">7</span> Payment Confirmation</a></li>
                 </ul>
-                {% endif %}
             </div>
 
             <div class="steps-validation">
@@ -202,13 +171,8 @@
                 <br/><br/>
                 <div class="form-group row right">
                     <div class="col-sm-6" style="text-align: left">
-                        {% if app.user.userType=="Deceased Producer" %}
-                            <a id="previous" href="{{ path('initial') }}" type="submit" class="btn btn-primary btn-lg">Previous</a>
-
-                        {% else %}
                         <a id="previous" href="{{ path('next-of-kin') }}" type="submit" class="btn btn-primary btn-lg">Previous</a>
-                        {% endif %}
-                    </div>
+                     </div>
                     <div class="col-sm-12" style="text-align: right">
                         <a href="{{ path('recording-sample') }}" id="continue" style="display: none;color: #fff;"  class="btn btn-primary btn-lg">Continue</a>
                     </div>

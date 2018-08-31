@@ -22,12 +22,6 @@ class PaymentForm extends AbstractType
             ->add('idemnifyLastName',null,[
                 'label'=>'Last Name',
                 'required'=>true
-            ])
-            ->add('idemnifyAt',DateType::class,[
-                'widget' => 'single_text',
-                'label'=>'Date',
-                'attr' => ['class' => 'js-datepicker'],
-                'html5' => false,
             ]);
     }
 

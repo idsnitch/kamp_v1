@@ -346,7 +346,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="display: none">
+                        <div class="row" style="">
                             <div class="col-md-4">
                                 <div><label for="app_bundle_corporate_details_form_secondDirectorNames">Second director names</label>
                                 <br/>
@@ -369,6 +369,7 @@
 
                     </fieldset>
                     <br>
+                   {% if profile.numberOfDirectors ==1 %}
                     <fieldset>
                         <legend>
                             Section D:  Next of Kin
@@ -490,6 +491,7 @@
                         </div>
 
                     </fieldset>
+                    {% endif %}
                     <br>
                     <fieldset>
                         <legend>Section E: Bank Details</legend><br>
@@ -539,7 +541,18 @@
                             </div>
                         </div>
                     </fieldset>
+                    <fieldset>
+                        <legend>Section F: Mpesa Payment Number</legend>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="app_bundle_profile_kin_form_kinFirstName" class="required">Mpesa Payment Number</label>
+                                <br/>
+                                {{ profile.paymentMpesaNumber }}
+                            </div>
+                        </div>
 
+                    </fieldset>
                 </form>
             </div>
         </div>

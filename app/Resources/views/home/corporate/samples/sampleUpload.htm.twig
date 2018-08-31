@@ -4,7 +4,7 @@
     <p>You have already submitted the following Recording Samples:  &nbsp;<b><span id="showTracks" style="font-size: 0.8em">View Tracks</span>&nbsp;&nbsp;<span id="hideTracks" style="display: none;font-size: 0.8em">Hide Tracks</span></b></p>
     <ol>
         {% for profileSample in profile.corporateMusicSamples %}
-            <li><b><i>{{ profileSample.albumTitle }}</i>  </b>
+            <li><b><i>{{ profileSample.recordingTitle}} - {{ profileSample.albumTitle }} ( {{ profileSample.declarationType }} )</i>  </b>
 
             <ol class="tracks" style="display: none">
                 <li><video width="320" height="240" controls>

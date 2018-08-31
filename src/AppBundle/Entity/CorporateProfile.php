@@ -36,9 +36,9 @@ class CorporateProfile
      */
     private $companyType;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
-    private $numberOfDirectors;
+    private $numberOfDirectors=1;
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
@@ -90,19 +90,17 @@ class CorporateProfile
      * @Assert\NotBlank()
      */
     private $regNumber;
-
-
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string")
      */
     private $physicalAddress;
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string")
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string")
      */
     private $county;
     /**

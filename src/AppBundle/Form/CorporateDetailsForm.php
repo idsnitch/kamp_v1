@@ -14,7 +14,6 @@ class CorporateDetailsForm extends AbstractType
     {
         $builder
             ->add('companyName')
-            ->add('tradingName')
             ->add('companyName')
             ->add('companyType', ChoiceType::class, array(
                 'choices' => array(
@@ -33,14 +32,7 @@ class CorporateDetailsForm extends AbstractType
                 'choices' => array(
                     '1' => '1',
                     '2' => '2',
-                    '3' => '3',
-                    '4' => '4',
-                    '5' => '5',
-                    '6' => '6',
-                    '7' => '7',
-                    '8' => '8',
-                    '9' => '9',
-                    '10' => '10'
+
                 ),
                 'placeholder'=>'Select',
                 'label'=>'Number of Directors'
@@ -247,6 +239,7 @@ class CorporateDetailsForm extends AbstractType
             ))
             ->add('bankBranch')
             ->add('bankCode')
+            ->add('paymentMpesaNumber')
             ->add('swiftCode')
             ->add('isCollectingSocietiesMember',ChoiceType::class,array(
                 'choices'=>array(

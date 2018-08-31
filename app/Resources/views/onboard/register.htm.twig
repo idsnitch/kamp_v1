@@ -7,17 +7,22 @@
 <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery('#app_bundle_registration_form_userType').on('change', function() {
-            if (this.value == "Sole Proprietorship" || this.value=="Partnership" || this.value=="Limited Company" ){
+            if (this.value === "Sole Proprietorship" || this.value==="Partnership" || this.value==="Limited Company" ){
                 jQuery("#company").fadeIn("slow");
+                var label1 = jQuery("#company label");
+                label1.addClass("required");
             }else{
                 jQuery("#company").fadeOut("slow");
             }
-            if (this.value == "Deceased Producer" ){
+
+            if (this.value === "Deceased Producer" ){
                 jQuery("#deceased").fadeIn("slow");
                 jQuery("#producerNames").fadeIn("slow");
+                var label2 = jQuery("#producerNames label");
+                label2.addClass("required");
             }else{
                 jQuery("#deceased").fadeOut("slow");
-                jQuery("#producerNames").fadeIn("slow");
+                jQuery("#producerNames").fadeOut("slow");
             }
 
         });
@@ -96,7 +101,17 @@
                 <div class="row" style="display: none;" id="producerNames">
                     <div class="col-md-6">
                         <div class="form-group has-feedback">
-                            <div><label for="app_bundle_registration_form_companyName">Producer's Full Names</label><input type="text" id="producerNames" name="producerNames"></div>
+                            <div><label for="app_bundle_registration_form_producerNames">Producer's Full Names</label>
+                                <input type="text" id="producerNames" name="producerNames"></div>
+                            <div class="form-control-feedback">
+                                <i class="icon-user-plus text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <div><label for="app_bundle_registration_form_producerNames">Relationship to Producer</label>
+                                {{ form_row(onboardForm.producerRelationship) }}</div>
                             <div class="form-control-feedback">
                                 <i class="icon-user-plus text-muted"></i>
                             </div>

@@ -34,8 +34,12 @@ class ProfileForm extends AbstractType
                 'expanded'=>true,
                 'required' => true,
             ))
-            ->add('physicalAddress')
-            ->add('city')
+            ->add('physicalAddress',[
+                'required'=>true
+            ])
+            ->add('city',[
+                'required'=>true
+            ])
             ->add('county', ChoiceType::class, array(
                 'choices' => array(
                     'Nairobi' => 'Nairobi',
@@ -265,6 +269,7 @@ class ProfileForm extends AbstractType
             ->add('otherKinEmailAddress')
             ->add('isOtherKinMinor')
             ->add('otherKinGuardian')
+            ->add('paymentMpesaNumbe')
             ->add('accountName')
             ->add('accountNumber')
             ->add('bank',ChoiceType::class, array(

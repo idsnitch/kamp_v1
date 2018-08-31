@@ -15,6 +15,7 @@ class ApplicantDetailsForm extends AbstractType
     {
         $builder
             ->add('applicantName')
+
             ->add('idNumber')
             ->add('itaxPin',null,[
                 'required'=>true
@@ -34,8 +35,13 @@ class ApplicantDetailsForm extends AbstractType
                 'expanded'=>true,
                 'required' => true,
             ))
-            ->add('physicalAddress')
-            ->add('city')
+            ->add('physicalAddress',null,[
+                'required'=>true
+
+            ])
+            ->add('city',null,[
+                'required'=>true
+            ])
             ->add('county', ChoiceType::class, array(
                 'choices' => array(
                     'Nairobi' => 'Nairobi',
@@ -106,6 +112,7 @@ class ApplicantDetailsForm extends AbstractType
                 'required' => true,
             ))
             ->add('collectingSocieties')
+            ->add('paymentMpesaNumber')
             ->add('accountName')
             ->add('accountNumber')
             ->add('bank',ChoiceType::class, array(

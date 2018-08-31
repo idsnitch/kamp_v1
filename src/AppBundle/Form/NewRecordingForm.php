@@ -8,6 +8,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,12 +20,20 @@ class NewRecordingForm extends AbstractType
     {
         $builder
             ->add('albumTitle')
-            ->add('dateOfProduction', DateType::class, [
-                'widget' => 'single_text',
+            ->add('recordingTitle')
+            ->add('declarationType', ChoiceType::class, [
+                'choices' => array(
+                    'Sound' => 'Sound',
+                    'Audio Visual' => 'Audio Visual'
+                ),
                 'required' => true,
-                'attr' => ['class' => 'js-datepicker'],
-                'html5' => false,
-                'label' => 'Date of Production'
+                'label' => 'Recording Type',
+                'placeholder'=>'Select Type'
+            ])
+            ->add('yearProduction',IntegerType::class,[
+                'attr'=>[
+                    'label'=>'Year of Production'
+                ]
             ])
             ->add('recordingStudio')
             ->add('countryOfRecording',CountryType::class)
@@ -38,30 +49,42 @@ class NewRecordingForm extends AbstractType
             ])
             ->add('mainArtist')
             ->add('documentFile',DocumentFileForm::class,[
-                'label'=>'Signed Audio/Visual Declaration Form'
-            ])
-            ->add('letterOfAdministration',DocumentFileForm::class,[
-                'label'=>'Letter of Administration',
-                'required'=>false
-            ])
-            ->add('deathCertificate',DocumentFileForm::class,[
-                'label'=>'Death Certificate',
-                'required'=>false
-            ])
-            ->add('artistContract',DocumentFileForm::class,[
-                'label'=>'Artist Contract',
+                'label'=>'Signed Audio/Visual Declaration Form',
                 'required'=>false
             ])
             ->add('recordingFile',RecordingFileForm::class)
-            ->add('sampleType', ChoiceType::class, [
+            ->add('musicCategory', ChoiceType::class, [
                 'choices' => array(
-                    'Own' => 'Own',
-                    'On Behalf of Artist' => 'On Behalf of Artist',
-                    'On Behalf of Child' => 'On Behalf of Child',
+                    'Secular' => 'Secular',
+                    'Gospel or Religious' => 'Gospel or Religious',
+                    'Patriotic' => 'Patriotic',
 
                 ),
-                'required' => true,
-                'label' => 'Ownership',
+                'required' => false,
+                'label' => 'Category',
+                'placeholder'=>'Select'
+            ])
+            ->add('backgroundVocals',TextareaType::class,[
+                'required'=>false
+            ])
+            ->add('trackProgramming')
+            ->add('otherInstrumentalists',TextareaType::class,[
+                'required'=>false
+            ])
+            ->add('musicStyle', ChoiceType::class, [
+                'choices' => array(
+                    'Jazz' => 'Jazz',
+                    'Hip-Hop' => 'Hip-Hop',
+                    'RnB' => 'RnB',
+                    'Rock' => 'Rock',
+                    'Pop'  => 'Pop',
+                    'Classical' => ' Classical',
+                    'Electronic' => 'Electronic',
+                    'Other' => 'Other'
+
+                ),
+                'required' => false,
+                'label' => 'Genre',
                 'placeholder'=>'Select'
             ]);
     }
